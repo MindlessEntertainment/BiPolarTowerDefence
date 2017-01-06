@@ -1,0 +1,10 @@
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/obj/x86/Debug/BiPolarTowerDefence.Icon.ico
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/OpenTK.dll.config
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/BiPolarTowerDefence.exe.mdb
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/BiPolarTowerDefence.exe
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/obj/x86/Debug/BiPolarTowerDefence.exe
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/obj/x86/Debug/BiPolarTowerDefence.exe.mdb
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/MonoGame.Framework.dll
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/OpenTK.dll
+/home/andri/dev/MindlessEntertainment/BiPolarTowerDefence/bin/Debug/NVorbis.dll
