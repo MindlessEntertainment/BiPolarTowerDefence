@@ -17,6 +17,7 @@ namespace BiPolarTowerDefence.Entities
         public List<Waypoint> Waypoints = new List<Waypoint>();
         private SpriteBatch spriteBatch;
         int coin = 100;
+        private int life = 10;
 
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
@@ -87,6 +88,10 @@ namespace BiPolarTowerDefence.Entities
                     }
                 }
             }
+            if (life < 1)
+            {
+                Game.Exit ();
+            }
             base.Update(gameTime);
         }
 
@@ -121,7 +126,13 @@ namespace BiPolarTowerDefence.Entities
         public void SpawnEnemy(Level level)
         {
 
-            AddComponent(new Enemy(this,EnemyType.Earthy));
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
         }
 
         public void AddComponent(GameComponent component)
@@ -132,6 +143,11 @@ namespace BiPolarTowerDefence.Entities
         public void addMoney(int i)
         {
             coin +=i;
+        }
+
+        public void loselife(int i)
+        {
+            life -= i;
         }
     }
 }
