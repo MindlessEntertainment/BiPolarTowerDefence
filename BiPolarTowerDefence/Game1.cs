@@ -1,5 +1,5 @@
 ﻿using System;
-
+using BiPolarTowerDefence.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
@@ -30,8 +30,8 @@ namespace BiPolarTowerDefence
 		protected override void Initialize ()
 		{
 			// TODO: Add your initialization logic here
-            
-			base.Initialize ();
+
+		    base.Initialize ();
 		}
 
 		/// <summary>
@@ -43,7 +43,8 @@ namespace BiPolarTowerDefence
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
-			//TODO: use this.Content to load your game content here 
+		    this.Components.Add(new Tower(this, new Vector3(1,1,1)));
+		    //TODO: use this.Content to load your game content here
 		}
 
 		/// <summary>
@@ -72,8 +73,17 @@ namespace BiPolarTowerDefence
 		protected override void Draw (GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
-            
-			//TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+		    foreach (var item in this.Components)
+		    {
+		        var drawable = item as IMyGameDrawable;
+		        if (drawable != null)
+		        {
+		            drawable.Draw(gameTime, spriteBatch);
+		        }
+		    }
+		    spriteBatch.End();
             
 			base.Draw (gameTime);
 		}
