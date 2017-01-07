@@ -20,6 +20,7 @@ namespace BiPolarTowerDefence.Entities
         public float DifficultyLevel = (float) 0.25;
         int coin = 100;
         private int life = 10;
+        private int killCount = 0;
 
         private int count = 0;
 
@@ -72,6 +73,8 @@ namespace BiPolarTowerDefence.Entities
             var tile = this.tiles[X, Y];
             tile.Type = type;
         }
+
+
 
         public override void Update(GameTime gameTime)
         {
@@ -133,6 +136,36 @@ namespace BiPolarTowerDefence.Entities
                     drawable.Draw(gameTime, spriteBatch);
                 }
             }
+
+
+            // Draw Hello World
+            var Font1 = _game._font;
+            string output1 =  coin + " : Coins";
+
+            // Find the center of the string
+            Vector2 FontOrigin1 = new Vector2(Font1.MeasureString(output1).X,0);
+            // Draw the string
+            spriteBatch.DrawString(Font1, output1, new Vector2(900 , 15), Color.White,
+                0, FontOrigin1, 1.0f, SpriteEffects.None, 0.5f);
+
+            string output2 = life + " :    Life";
+
+            // Find the center of the string
+            Vector2 FontOrigin2 = new Vector2(Font1.MeasureString(output2).X,0);
+            // Draw the string
+            spriteBatch.DrawString(Font1, output2, new Vector2(900 , 40), Color.White,
+                0, FontOrigin2, 1.0f, SpriteEffects.None, 0.5f);
+
+
+            string output3 = killCount + " :   Kills";
+
+            // Find the center of the string
+            Vector2 FontOrigin3 = new Vector2(Font1.MeasureString(output3).X,0);
+            // Draw the string
+            spriteBatch.DrawString(Font1, output3, new Vector2(900 , 60), Color.White,
+                0, FontOrigin3, 1.0f, SpriteEffects.None, 0.5f);
+
+
             spriteBatch.End();
         }
 
@@ -166,6 +199,11 @@ namespace BiPolarTowerDefence.Entities
         public void loselife(int i)
         {
             life -= i;
+        }
+
+        public void score(int i)
+        {
+            killCount += i;
         }
 
         public IEnumerable<GameComponent> getComponents()
