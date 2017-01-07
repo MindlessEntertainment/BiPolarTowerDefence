@@ -27,6 +27,9 @@ namespace BiPolarTowerDefence
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
 		    this.IsMouseVisible = true;
+		    graphics.PreferredBackBufferWidth = 20 * Tile.TILE_SIZE;
+		    graphics.PreferredBackBufferHeight = 10 * Tile.TILE_SIZE;
+		    graphics.ApplyChanges();
 		}
 
 		/// <summary>
