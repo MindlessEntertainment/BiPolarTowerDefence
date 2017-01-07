@@ -43,5 +43,17 @@ namespace BiPolarTowerDefence.Entities
                 this.Life--;
             }
         }
+
+        public Rectangle GetHitbox()
+        {
+            return this.GetRect();
+        }
+
+        public bool Intersects(ICollider collider)
+        {
+            var thisBox = this.GetHitbox();
+            var thatBox = collider.GetHitbox();
+            return thisBox.Intersects(thatBox);
+        }
     }
 }

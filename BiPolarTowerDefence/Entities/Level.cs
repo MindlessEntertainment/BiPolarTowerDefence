@@ -47,7 +47,26 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
+            foreach (var item in Components)
+            {
+                item.Update(gameTime);
 
+                var collider = item as ICollider;
+                if (collider != null)
+                {
+                    foreach (var itemInner in Components)
+                    {
+                        var collidable = itemInner as ICollidable;
+                        if (collidable != null)
+                        {
+                            if (collidable.Intersects(collider))
+                            {
+                                collidable.OnCollision(collider);
+                            }
+                        }
+                    }
+                }
+            }
             base.Update(gameTime);
         }
 

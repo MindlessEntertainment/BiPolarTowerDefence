@@ -84,5 +84,10 @@ namespace BiPolarTowerDefence.Entities
             bullet.Enabled = true;
             return bullet;
         }
+
+        public Rectangle GetHitbox()
+        {
+            return this.GetRect();
+        }
     }
 }
