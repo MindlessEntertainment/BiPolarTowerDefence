@@ -119,35 +119,6 @@ namespace BiPolarTowerDefence
 
 			base.Draw (gameTime);
 		}
-
-		private void DrawEndCredits(GameTime gameTime)
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    private void DrawGameplay(GameTime gameTime)
-	    {
-	        level.Draw(gameTime);
-	        /*spriteBatch.Begin();
-		    foreach (var item in this.Components)
-		    {
-		        var drawable = item as IMyGameDrawable;
-		        if (drawable != null)
-		        {
-		            drawable.Draw(gameTime, spriteBatch);
-		        }
-		    }
-		    spriteBatch.End();
-            */
-	    }
-
-		private void DrawMainMenu(GameTime gameTime)
-	    {
-
-	    	graphics.GraphicsDevice.Clear (Color.DarkSlateGray);
-
-
-	    }
 	}
 }
 

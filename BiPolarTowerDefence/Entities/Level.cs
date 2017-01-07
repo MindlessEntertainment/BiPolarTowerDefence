@@ -139,7 +139,7 @@ namespace BiPolarTowerDefence.Entities
 
 
             // Draw Hello World
-            var Font1 = _game._font;
+            var Font1 = _game.Font;
             string output1 =  coin + " : Coins";
 
             // Find the center of the string

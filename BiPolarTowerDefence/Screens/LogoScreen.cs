@@ -7,6 +7,9 @@ namespace BiPolarTowerDefence.Screens
     public class LogoScreen : GameScreen
     {
         private Texture2D logo;
+        int mAlphaValue = 1;
+        int mFadeIncrement = 3;
+        double mFadeDelay = .025;
 
         public LogoScreen()
         {
@@ -19,6 +22,12 @@ namespace BiPolarTowerDefence.Screens
 
         public override void Update(GameTime gameTime)
         {
+            mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (mFadeDelay <= 0)
+            {
+                mAlphaValue += mFadeIncrement;
+            }
 
             if (gameTime.TotalGameTime.Seconds > 5)
             {
@@ -38,7 +47,7 @@ namespace BiPolarTowerDefence.Screens
             var posX = (Game1.GAME_WIDTH - (logo.Width*0.5f)) / 2;
             var posY = (Game1.GAME_HEIGHT - (logo.Height*0.5f)) / 2;
             spriteBatch.Begin();
-            spriteBatch.Draw(logo, new Vector2(posX,posY),null,Color.White,0f,Vector2.Zero,0.5f,SpriteEffects.None,0f);
+            spriteBatch.Draw(logo, new Vector2(posX,posY),null,new Color(255,255,255, (byte)MathHelper.Clamp(mAlphaValue,0,255)),0f,Vector2.Zero,0.5f,SpriteEffects.None,0f);
             spriteBatch.End();
         }
     }
