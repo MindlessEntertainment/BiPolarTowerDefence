@@ -20,7 +20,7 @@ namespace BiPolarTowerDefence.Entities
 
         public Rectangle GetRect()
         {
-            return new Rectangle((int)this.position.X, (int)-this.position.Y, (int)this.width,(int)this.height);
+            return new Rectangle((int)this.position.X, (int)this.position.Z, (int)this.width,(int)this.height);
         }
     }
 }

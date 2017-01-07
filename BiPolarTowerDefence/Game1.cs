@@ -12,8 +12,8 @@ namespace BiPolarTowerDefence
 	/// </summary>
 	public class Game1 : Game
 	{
-	    public const int BOARD_WIDHT = 20;
-	    public const int BOARD_HEIGHT = 10;
+	    public const int BOARD_WIDHT = 30;
+	    public const int BOARD_HEIGHT = 20;
 
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
