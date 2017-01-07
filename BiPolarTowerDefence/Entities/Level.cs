@@ -16,7 +16,8 @@ namespace BiPolarTowerDefence.Entities
         private List<GameComponent> _components = new List<GameComponent>();
         public List<Waypoint> Waypoints = new List<Waypoint>();
         private SpriteBatch spriteBatch;
-
+        public int WaveNumber = 1;
+        public float DifficultyLevel = (float) 0.25;
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
             _game = game;

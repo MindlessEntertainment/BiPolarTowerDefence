@@ -20,11 +20,12 @@ namespace BiPolarTowerDefence.Entities
         public Direction myDirection;
         private Texture2D textureHealth;
         public int Life { get; private set; }
-        public int MaxLife = 3;
+        public int MaxLife;
         public int LifeWidth = 50;
         public const int spriteWidth = 50;
         public const int spriteHeight = 50;
-        private const float speed = 2f;
+        private float speed;
+        private const float initialSpeed = 3;
         private Vector3 distanceVector;
         private int WaypointIndex = 0;
         private Vector3 velocityVector;
@@ -34,6 +35,18 @@ namespace BiPolarTowerDefence.Entities
             _level = level;
             _enemyType = enemyType;
             _game = level._game;
+
+            MaxLife = (int) Math.Round(level.WaveNumber * level.DifficultyLevel);
+            if (MaxLife < 3)
+            {
+                MaxLife = 3;
+            }
+
+            speed = initialSpeed*level.WaveNumber * level.DifficultyLevel;
+            if (speed < initialSpeed)
+            {
+                speed = initialSpeed;
+            }
             this.Initialize();
         }
 
