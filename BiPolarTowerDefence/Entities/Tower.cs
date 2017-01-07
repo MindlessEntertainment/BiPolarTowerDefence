@@ -13,7 +13,7 @@ namespace BiPolarTowerDefence.Entities
         private int _count = 0;
         private TowerTechLevel _tech = TowerTechLevel.Base;
         private int towerRange = 300;
-        private int rateOfFire = 60
+        private int rateOfFire = 60;
 
         private float projectileSpeed = 25f;
         public TowerType type = TowerType.Normal;
