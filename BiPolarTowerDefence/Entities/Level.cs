@@ -23,6 +23,15 @@ namespace BiPolarTowerDefence.Entities
             _gameWidth = gameWidth;
 
             tiles = new Tile[_gameWidth,_gameHeight];
+            for (int x = 0; x < _gameWidth; x++)
+            {
+                for (int y = 0; y < _gameHeight; y++)
+                {
+                    var tile = new Tile(_game, new Vector3(x*Tile.TILE_SIZE,0,y*Tile.TILE_SIZE),TileType.Dirt);
+                    tiles[x, y] = tile;
+                    this.Components.Add(tile);
+                }
+            }
 
             new LevelLoader(this, level);
 
@@ -31,8 +40,8 @@ namespace BiPolarTowerDefence.Entities
 
         public void AddTile(int X, int Y, TileType type)
         {
-            var tile = new Tile(this._game,new Vector3(X*Tile.TILE_SIZE,0,Y*Tile.TILE_SIZE),type );
-            this.Components.Add(tile);
+            var tile = this.tiles[X, Y];
+            tile.Type = type;
         }
 
         public override void Update(GameTime gameTime)

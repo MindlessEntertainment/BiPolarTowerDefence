@@ -9,11 +9,15 @@ namespace BiPolarTowerDefence.Entities
 
         public const int TILE_SIZE = 64;
 
-        private readonly TileType _type;
+        private readonly Game1 _game;
+        public TileType Type;
+
+        private int offset = 0;
 
         public Tile(Game1 game, Vector3 position, TileType type) : base(game, position)
         {
-            _type = type;
+            _game = game;
+            Type = type;
             LoadContent(game);
         }
 
@@ -28,7 +32,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,new Vector2(position.X,position.Z),new Rectangle(1 * TILE_SIZE ,(int)_type * TILE_SIZE, TILE_SIZE, TILE_SIZE),Color.White);
+            spriteBatch.Draw(texture,new Vector2(position.X,position.Z),new Rectangle(1 * TILE_SIZE ,(int)Type * TILE_SIZE, TILE_SIZE, TILE_SIZE),Color.White);
         }
     }
 
