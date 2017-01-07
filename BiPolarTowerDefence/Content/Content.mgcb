@@ -55,3 +55,9 @@
 /processorParam:TextureFormat=Color
 /build:tileset.png
 
+#begin Level1/Tiles.csv
+/copy:Level1/Tiles.csv
+
+#begin Level1/Waypoints.csv
+/copy:Level1/Waypoints.csv
+

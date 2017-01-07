@@ -8,7 +8,7 @@ namespace BiPolarTowerDefence.Entities
     {
         private Texture2D texture;
 
-        public Tower(Game game, Vector3 position) : base(game, position)
+        public Tower(Game1 game, Vector3 position) : base(game, position)
         {
             this.Initialize();
         }
@@ -29,7 +29,7 @@ namespace BiPolarTowerDefence.Entities
         {
             if (count++ % 10 == 0)
             {
-                Bullet.SpawnBullet(Game, this.position + new Vector3(0,-0,0), new Vector3(1, -1, 0)*3, this, 500);
+                Bullet.SpawnBullet(_game, this.position + new Vector3(0,-0,0), new Vector3(1, -1, 0)*3, this, 500);
             }
             base.Update(gameTime);
         }

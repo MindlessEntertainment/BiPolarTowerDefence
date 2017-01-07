@@ -11,13 +11,13 @@ namespace BiPolarTowerDefence.Entities
 
         private readonly TileType _type;
 
-        public Tile(Game game, Vector3 position, TileType type) : base(game, position)
+        public Tile(Game1 game, Vector3 position, TileType type) : base(game, position)
         {
             _type = type;
             LoadContent(game);
         }
 
-        private static void LoadContent(Game game)
+        private static void LoadContent(Game1 game)
         {
             if (texture == null)
             {

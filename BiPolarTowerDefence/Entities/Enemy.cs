@@ -12,7 +12,7 @@ namespace BiPolarTowerDefence.Entities
 
         public int Life { get; private set; }
 
-        public Enemy(Game game, Vector3 position) : base(game, position)
+        public Enemy(Game1 game, Vector3 position) : base(game, position)
         {
             this.Initialize();
         }

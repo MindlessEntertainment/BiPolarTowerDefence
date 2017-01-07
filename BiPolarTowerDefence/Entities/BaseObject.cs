@@ -7,13 +7,14 @@ namespace BiPolarTowerDefence.Entities
 {
     public class BaseObject :GameComponent
     {
-
+        protected readonly Game1 _game;
         public Vector3 position;
         public float width = 16;
         public float height = 16;
 
-        public BaseObject(Game game, Vector3 position):base(game)
+        public BaseObject(Game1 game, Vector3 position):base(game)
         {
+            _game = game;
             this.position = position;
         }
 
