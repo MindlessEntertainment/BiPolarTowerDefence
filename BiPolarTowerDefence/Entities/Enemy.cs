@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
@@ -8,6 +10,7 @@ namespace BiPolarTowerDefence.Entities
 {
     public class Enemy: BaseObject, IMyGameDrawable, ICollidable
     {
+        private readonly Level _level;
         private readonly Game1 _game;
         private Texture2D texture;
 
@@ -19,10 +22,15 @@ namespace BiPolarTowerDefence.Entities
         public int LifeWidth = 50;
         public const int spriteWidth = 50;
         public const int spriteHeight = 50;
+        private const float speed = 2f;
+        private Vector3 distanceVector;
+        private int WaypointIndex = 1;
+        private Vector3 velocityVector;
 
-        public Enemy(Game1 game, Vector3 position) : base(game, position)
+        public Enemy(Level level, Vector3 position) : base(level._game, position)
         {
-            _game = game;
+            _level = level;
+            _game = level._game;
             this.Initialize();
         }
 
@@ -38,7 +46,8 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
-            this.position += Vector3.Right + Vector3.Backward;
+            GoToNextWaypoint();
+            this.position += velocityVector;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -74,6 +83,15 @@ namespace BiPolarTowerDefence.Entities
         public void GoToNextWaypoint()
         {
 
+            distanceVector = _level.Waypoints[WaypointIndex % _level.Waypoints.Count].position - this.position;
+            if (distanceVector.Length() < speed)
+            {
+                WaypointIndex++;
+                distanceVector = _level.Waypoints[WaypointIndex % _level.Waypoints.Count].position - this.position;
+
+            }
+            distanceVector.Normalize();
+            velocityVector = distanceVector * speed;
         }
     }
 }
