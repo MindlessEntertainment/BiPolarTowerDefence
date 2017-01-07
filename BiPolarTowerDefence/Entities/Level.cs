@@ -113,7 +113,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void SpawnEnemy(Level level)
         {
-            Vector3 spawnPoint = new Vector3(500, 100, 100);
+            Vector3 spawnPoint = new Vector3(0, 0, 0);
 			spawnPoint = level.Waypoints.First().position;
             var bob = new Enemy(this, spawnPoint);
             this._components.Add(bob);
