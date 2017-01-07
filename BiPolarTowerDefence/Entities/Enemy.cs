@@ -70,6 +70,7 @@ namespace BiPolarTowerDefence.Entities
                 if (Life < 1)
                 {
                     _level.addMoney(5);
+                    _level.score(1);
                     this.Enabled = false;
                     this.enemyReuseQueue.Enqueue(this);
                 }
@@ -101,6 +102,7 @@ namespace BiPolarTowerDefence.Entities
                     this.position = _level.Waypoints[0].position;
                     WaypointIndex = 1;
                     _level.loselife(1);
+
                 }
                 distanceVector = _level.Waypoints[WaypointIndex % _level.Waypoints.Count].position - this.position;
             }
