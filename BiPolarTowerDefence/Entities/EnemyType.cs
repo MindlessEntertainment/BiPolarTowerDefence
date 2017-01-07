@@ -1,6 +1,6 @@
 ﻿namespace BiPolarTowerDefence.Entities
 {
-    public enum TowerType
+    public enum EnemyType
     {
         Frosty,
         Fiery,

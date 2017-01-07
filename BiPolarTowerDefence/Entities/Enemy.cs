@@ -13,12 +13,12 @@ namespace BiPolarTowerDefence.Entities
     {
         public Queue<Enemy> enemyReuseQueue = new Queue<Enemy>();
         private readonly Level _level;
+        private readonly EnemyType _enemyType;
         private readonly Game1 _game;
         private Texture2D texture;
-
+        private string Enemytype;
         public Direction myDirection;
         private Texture2D textureHealth;
-
         public int Life { get; private set; }
         public int MaxLife = 3;
         public int LifeWidth = 50;
@@ -26,12 +26,13 @@ namespace BiPolarTowerDefence.Entities
         public const int spriteHeight = 50;
         private const float speed = 2f;
         private Vector3 distanceVector;
-        private int WaypointIndex = 1;
+        private int WaypointIndex = 0;
         private Vector3 velocityVector;
 
-        public Enemy(Level level, Vector3 position) : base(level._game, position)
+        public Enemy(Level level,EnemyType enemyType) : base(level._game, Vector3.Zero)
         {
             _level = level;
+            _enemyType = enemyType;
             _game = level._game;
             this.Initialize();
         }
