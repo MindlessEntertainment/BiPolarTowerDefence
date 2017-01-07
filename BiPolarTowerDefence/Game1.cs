@@ -15,10 +15,13 @@ namespace BiPolarTowerDefence
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+	    public MouseState mouseState;
+
 		public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
+		    this.IsMouseVisible = true;
 		}
 
 		/// <summary>
@@ -55,6 +58,7 @@ namespace BiPolarTowerDefence
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update (GameTime gameTime)
 		{
+		    this.mouseState = Mouse.GetState();
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
 			// Exit() is obsolete on iOS
 			#if !__IOS__ &&  !__TVOS__

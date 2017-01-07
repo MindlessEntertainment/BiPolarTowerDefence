@@ -21,7 +21,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.Z,this.position.Y),new Rectangle(0,0,100,100),Color.White);
+            spriteBatch.Draw(this.texture, new Vector2(this.position.X,-this.position.Y),new Rectangle(0,0,100,100),Color.White);
         }
     }
 }
