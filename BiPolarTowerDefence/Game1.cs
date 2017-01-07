@@ -20,6 +20,8 @@ namespace BiPolarTowerDefence
 		GameState _state;
 		SpriteFont _font;
 
+	    public Random random = new Random();
+
 	    private Level level;
 
 

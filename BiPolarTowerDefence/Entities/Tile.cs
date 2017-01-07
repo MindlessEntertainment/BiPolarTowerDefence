@@ -19,6 +19,7 @@ namespace BiPolarTowerDefence.Entities
             _game = game;
             Type = type;
             LoadContent(game);
+            offset = _game.random.Next(0, 3);
         }
 
         private static void LoadContent(Game1 game)
@@ -32,7 +33,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,new Vector2(position.X,position.Z),new Rectangle(1 * TILE_SIZE ,(int)Type * TILE_SIZE, TILE_SIZE, TILE_SIZE),Color.White);
+            spriteBatch.Draw(texture,new Vector2(position.X,position.Z),new Rectangle(offset*2 * TILE_SIZE ,(int)Type * TILE_SIZE, TILE_SIZE, TILE_SIZE),Color.White);
         }
     }
 
