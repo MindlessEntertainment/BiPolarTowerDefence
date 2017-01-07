@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -10,6 +11,7 @@ namespace BiPolarTowerDefence.Entities
 {
     public class Enemy: BaseObject, IMyGameDrawable, ICollidable
     {
+        public Queue<Enemy> enemyReuseQueue = new Queue<Enemy>();
         private readonly Level _level;
         private readonly Game1 _game;
         private Texture2D texture;
@@ -64,6 +66,11 @@ namespace BiPolarTowerDefence.Entities
             if (bullet != null)
             {
                 this.Life--;
+                if (Life < 1)
+                {
+                    this.Enabled = false;
+                    this.enemyReuseQueue.Enqueue(this);
+                }
                 Console.WriteLine("HIT! Life:" + this.Life);
             }
         }
