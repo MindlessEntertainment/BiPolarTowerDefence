@@ -18,6 +18,9 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
+        int coin = 100;
+        private int life = 10;
+
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
             _game = game;
@@ -37,6 +40,8 @@ namespace BiPolarTowerDefence.Entities
 
             new LevelLoader(this, levelName);
             SpawnEnemy(this);
+
+
 
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
@@ -85,6 +90,10 @@ namespace BiPolarTowerDefence.Entities
                     }
                 }
             }
+            if (life < 1)
+            {
+                Game.Exit ();
+            }
             base.Update(gameTime);
         }
 
@@ -119,12 +128,28 @@ namespace BiPolarTowerDefence.Entities
         public void SpawnEnemy(Level level)
         {
 
-            AddComponent(new Enemy(this,EnemyType.Earthy));
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
         }
 
         public void AddComponent(GameComponent component)
         {
             this._components.Add(component);
+        }
+
+        public void addMoney(int i)
+        {
+            coin +=i;
+        }
+
+        public void loselife(int i)
+        {
+            life -= i;
         }
     }
 }
