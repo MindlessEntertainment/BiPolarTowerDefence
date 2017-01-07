@@ -1,1 +1,19 @@
-﻿<Properties StartupItem="BiPolarTowerDefence/BiPolarTowerDefence.csproj" />
+﻿<Properties StartupItem="BiPolarTowerDefence/BiPolarTowerDefence.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BiPolarTowerDefence/Entities/Enemy.cs">
+    <Files>
+      <File FileName="BiPolarTowerDefence/Entities/Enemy.cs" Line="1" Column="1" />
+      <File FileName="BiPolarTowerDefence/Game1.cs" Line="1" Column="1" />
+      <File FileName="BiPolarTowerDefence/Entities/Level.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

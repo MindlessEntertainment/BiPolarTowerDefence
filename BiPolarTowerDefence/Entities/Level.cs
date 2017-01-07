@@ -21,6 +21,8 @@ namespace BiPolarTowerDefence.Entities
         int coin = 100;
         private int life = 10;
 
+        private int count = 0;
+
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
             _game = game;
@@ -45,6 +47,20 @@ namespace BiPolarTowerDefence.Entities
 
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+
+            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+
+
+
             ///this._components.Add(new Enemy(_game,new Vector3(5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
 
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
@@ -94,6 +110,11 @@ namespace BiPolarTowerDefence.Entities
             {
                 Game.Exit ();
             }
+
+            if (count++ % 30 == 0)
+            {
+                SpawnEnemy(this);
+            }
             base.Update(gameTime);
         }
 
@@ -128,13 +149,8 @@ namespace BiPolarTowerDefence.Entities
         public void SpawnEnemy(Level level)
         {
 
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(_game.random.Next(1,100),0,_game.random.Next(1,100))});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(-10,0,0)});
+
         }
 
         public void AddComponent(GameComponent component)
@@ -150,6 +166,11 @@ namespace BiPolarTowerDefence.Entities
         public void loselife(int i)
         {
             life -= i;
+        }
+
+        public IEnumerable<GameComponent> getComponents()
+        {
+            return _components;
         }
     }
 }

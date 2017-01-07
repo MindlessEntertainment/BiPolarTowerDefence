@@ -50,6 +50,7 @@ namespace BiPolarTowerDefence.Entities
 
             if (_count++ % rateOfFire == 0)
             {
+                this.shootBullet();
                 var shotVector = new Vector3(1, -1, 0);
                 shotVector.Normalize();
                 Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, towerRange);
@@ -62,6 +63,20 @@ namespace BiPolarTowerDefence.Entities
                 this._isSelected = true;
             }
             base.Update(gameTime);
+        }
+
+        private void shootBullet()
+        {
+            foreach (var item in _level.getComponents())
+            {
+                var enemy = item as Enemy;
+                if (enemy != null && enemy.Enabled)
+                {
+                    var distance = (this.position - enemy.position).Length();
+
+
+                }
+            }
         }
 
         public void OnUpgrade()
