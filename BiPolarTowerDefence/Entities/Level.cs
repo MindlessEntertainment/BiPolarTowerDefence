@@ -27,6 +27,12 @@ namespace BiPolarTowerDefence.Entities
             this.Components.Add(tile);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+
+            base.Update(gameTime);
+        }
+
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
