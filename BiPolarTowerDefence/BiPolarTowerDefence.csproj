@@ -52,6 +52,9 @@
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\ICollidable.cs" />
     <Compile Include="Entities\ICollider.cs" />
+    <Compile Include="Entities\Level.cs" />
+    <Compile Include="Entities\LevelLoader.cs" />
+    <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tower.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
