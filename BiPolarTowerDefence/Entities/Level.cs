@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,8 +14,8 @@ namespace BiPolarTowerDefence.Entities
         private Tile[,] tiles;
         private List<GameComponent> Components = new List<GameComponent>();
         private List<Waypoint> Waypoints = new List<Waypoint>();
-
         private SpriteBatch spriteBatch;
+
 
         public Level(Game1 game, string level, int gameHeight, int gameWidth):base(game)
         {
@@ -34,9 +35,10 @@ namespace BiPolarTowerDefence.Entities
             }
 
             new LevelLoader(this, level);
-
+            SpawnEnemy(_game,this);
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
+
 
         public void AddTile(int X, int Y, TileType type)
         {
@@ -73,5 +75,15 @@ namespace BiPolarTowerDefence.Entities
         {
             this.Waypoints.Add(new Waypoint(X,Y));
         }
+
+        public void SpawnEnemy(Game1 _game,Level level)
+        {
+            Vector3 spawnPoint = new Vector3(0, 0, 0);
+			spawnPoint = level.Waypoints.First().position;
+            var bob = new Enemy(_game, spawnPoint);
+            this.Components.Add(bob);
+        }
+
+
     }
 }

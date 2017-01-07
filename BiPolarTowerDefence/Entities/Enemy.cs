@@ -42,5 +42,6 @@ namespace BiPolarTowerDefence.Entities
                 this.Life--;
             }
         }
+        public
     }
 }
