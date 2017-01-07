@@ -3,3 +3,6 @@ BiPolarTowerDefence/obj/x86/Debug/BiPolarTowerDefence.exe
 BiPolarTowerDefence/bin/Debug/BiPolarTowerDefence.exe
 BiPolarTowerDefence/bin/Debug/BiPolarTowerDefence.exe.mdb
 BiPolarTowerDefence/obj/x86/Debug/BiPolarTowerDefence.csproj.FilesWrittenAbsolute.txt
+BiPolarTowerDefence/Content/bin/
+BiPolarTowerDefence/Content/obj/
+.idea/
