@@ -16,6 +16,7 @@ namespace BiPolarTowerDefence.Entities
         private List<GameComponent> _components = new List<GameComponent>();
         public List<Waypoint> Waypoints = new List<Waypoint>();
         private SpriteBatch spriteBatch;
+        int coin = 100;
 
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
@@ -36,6 +37,8 @@ namespace BiPolarTowerDefence.Entities
 
             new LevelLoader(this, levelName);
             SpawnEnemy(this);
+
+
 
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
@@ -124,6 +127,11 @@ namespace BiPolarTowerDefence.Entities
         public void AddComponent(GameComponent component)
         {
             this._components.Add(component);
+        }
+
+        public void addMoney(int i)
+        {
+            coin +=i;
         }
     }
 }

@@ -69,6 +69,7 @@ namespace BiPolarTowerDefence.Entities
                 this.Life--;
                 if (Life < 1)
                 {
+                    _level.addMoney(5);
                     this.Enabled = false;
                     this.enemyReuseQueue.Enqueue(this);
                 }
