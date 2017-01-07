@@ -33,7 +33,7 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
-            if (_count++ % 10 == 0)
+            if (_count++ % 60 == 0)
             {
                 var shotVector = new Vector3(1, -1, 0);
                 shotVector.Normalize();

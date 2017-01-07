@@ -55,6 +55,10 @@ namespace BiPolarTowerDefence.Entities
             {
                 var item = _components[i];
                 if (item == null) throw new ArgumentNullException(nameof(item));
+                if (item.Enabled == false)
+                {
+                    continue;
+                }
                 item.Update(gameTime);
 
                 var collider = item as ICollider;
@@ -68,6 +72,7 @@ namespace BiPolarTowerDefence.Entities
                             if (collidable.Intersects(collider))
                             {
                                 collidable.OnCollision(collider);
+                                collider.OnCollision(collidable);
                             }
                         }
                     }
@@ -81,6 +86,10 @@ namespace BiPolarTowerDefence.Entities
             spriteBatch.Begin();
             foreach (var item in _components)
             {
+                if (item.Enabled == false)
+                {
+                    continue;
+                }
                 var drawable = item as IMyGameDrawable;
                 if (drawable != null)
                 {
