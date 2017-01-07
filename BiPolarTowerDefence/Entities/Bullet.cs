@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OpenTK;
@@ -75,8 +76,11 @@ namespace BiPolarTowerDefence.Entities
                     velocity = velocity,
                     MaxDistanceFromOwner = maxRange
                 };
+                game.Components.Add(bullet);
 
             }
+
+            bullet.Enabled = true;
             return bullet;
         }
     }

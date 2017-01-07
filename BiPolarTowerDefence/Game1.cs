@@ -46,7 +46,7 @@ namespace BiPolarTowerDefence
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
-		    this.Components.Add(new Tower(this, new Vector3(1,1,1)));
+		    this.Components.Add(new Tower(this, new Vector3(150,-200,1)));
 		    this.Components.Add(new Enemy(this, new Vector3(1,1,1)));
 		    //TODO: use this.Content to load your game content here
 		}
