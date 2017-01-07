@@ -1,5 +1,6 @@
 ﻿using System;
 using BiPolarTowerDefence.Entities;
+using BiPolarTowerDefence.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,18 +12,21 @@ namespace BiPolarTowerDefence
 	/// </summary>
 	public class Game1 : Game
 	{
-	    public const int BOARD_WIDHT = 1024/Tile.TILE_SIZE;
-	    public const int BOARD_HEIGHT = 768/Tile.TILE_SIZE;
+	    public const int GAME_WIDTH = 1024;
+	    public const int GAME_HEIGHT = 768;
 
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
-		GameState _state;
-		public SpriteFont _font;
+	    public const int BOARD_WIDHT = GAME_WIDTH/Tile.TILE_SIZE;
+	    public const int BOARD_HEIGHT = GAME_HEIGHT/Tile.TILE_SIZE;
+
+		public GraphicsDeviceManager graphics;
+		public SpriteBatch spriteBatch;
+		public SpriteFont Font;
 
 	    public Random random = new Random();
 
 	    private Level level;
 
+	    public static Game1 Game;
 
 	    public MouseState mouseState;
 
@@ -45,6 +49,8 @@ namespace BiPolarTowerDefence
 		    graphics.PreferredBackBufferWidth = BOARD_WIDHT * Tile.TILE_SIZE;
 		    graphics.PreferredBackBufferHeight = BOARD_HEIGHT * Tile.TILE_SIZE;
 		    graphics.ApplyChanges();
+
+		    Game = this;
 		}
 
 		/// <summary>
@@ -55,9 +61,15 @@ namespace BiPolarTowerDefence
 		/// </summary>
 		protected override void Initialize ()
 		{
-		    _state = GameState.Gameplay;
-			_font = this.Content.Load<SpriteFont> ("font");
 
+			Font = this.Content.Load<SpriteFont> ("font");
+		    ScreenManager = new ScreenManager(this);
+		    var splashScreen = new LogoScreen();
+		    splashScreen.Activate();
+		    var menu = new MainMenuScreen();
+		    ScreenManager.AddScreen(GameScreens.SplashScreen, splashScreen);
+		    ScreenManager.AddScreen(GameScreens.MainMenu, menu);
+		    ScreenManager.AddScreen(GameScreens.GamePlay, new GameplayScreen());
 		    base.Initialize ();
 		}
 
@@ -71,9 +83,7 @@ namespace BiPolarTowerDefence
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
 		    //TODO: use this.Content to load your game content here
-
-			this.ScreenManager = new ScreenManager(this);
-		    level = new Level(this,"Level1",BOARD_HEIGHT, BOARD_WIDHT);
+		    this.ScreenManager.Load();
 		}
 
 
@@ -93,37 +103,10 @@ namespace BiPolarTowerDefence
 			#endif
 
 			// TODO: Add your update logic here
-            switch (_state)
-			{
-			case GameState.MainMenu:
-				UpdateMainMenu (gameTime);
-				break;
-			case GameState.Gameplay:
-				UpdateGameplay (gameTime);
-				break;
-			case GameState.EndCredits:
-				UpdateEndCredits (gameTime);
-				break;
-			default:
-				break;
-			}
+            this.ScreenManager.Update(gameTime);
 
 			base.Update (gameTime);
 		}
-
-		private void UpdateEndCredits(GameTime gameTime)
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    private void UpdateGameplay(GameTime gameTime)
-	    {
-	        level.Update(gameTime);
-	    }
-
-	    private void UpdateMainMenu(GameTime gameTime)
-	    {
-	    }
 
 		/// <summary>
 		/// This is called when the game should draw itself.
@@ -132,21 +115,7 @@ namespace BiPolarTowerDefence
 		protected override void Draw (GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
-
-		    switch (_state)
-		    {
-		        case GameState.MainMenu:
-		            DrawMainMenu (gameTime);
-		            break;
-		        case GameState.Gameplay:
-		            DrawGameplay (gameTime);
-		            break;
-		        case GameState.EndCredits:
-		            DrawEndCredits (gameTime);
-		            break;
-		        default:
-		            break;
-		    }
+		    this.ScreenManager.Draw(gameTime);
 
 			base.Draw (gameTime);
 		}
@@ -177,55 +146,8 @@ namespace BiPolarTowerDefence
 
 	    	graphics.GraphicsDevice.Clear (Color.DarkSlateGray);
 
-	        Vector2 size 	        = new Vector2(200,100);
-	        float buttonX = ((this.Window.ClientBounds.Width / 2)- (size.X/2));
-	        float buttonY = 200f;
 
-	        MenuButton start = new MenuButton(new Vector2 (buttonX,200f), size,"START", _font);
-	        MenuButton edit = new MenuButton(new Vector2 (buttonX,300f), size, "EditMode", _font);
-	        start.Draw(gameTime,this.GraphicsDevice, spriteBatch);
-	        edit.Draw(gameTime,this.GraphicsDevice, spriteBatch);
 	    }
 	}
-
-	enum GameState
-	{
-		MainMenu,
-		Gameplay,
-		EndCredits
-	}
-
-    class MenuButton
-    {
-        private Vector2 _position;
-        private Vector2 _size;
-        private string _text;
-        private SpriteFont _font;
-
-        public MenuButton(Vector2 position, Vector2 size, string text, SpriteFont font)
-        {
-            _size = size;
-            _position = position;
-            _text = text;
-            _font = font;
-
-        }
-
-        public void Draw(GameTime gameTime, GraphicsDevice graphics, SpriteBatch spriteBatch)
-        {
-            int stringX =  (int)(((_size.X/2)-(_font.MeasureString(_text).X / 2)) +_position.X);
-            int stringY =  (int)(((_size.Y/2)-(_font.MeasureString(_text).Y / 2)) +_position.Y);
-            Vector2 stringPosition = new Vector2 (stringX,stringY);
-            Rectangle destination = new Rectangle (_position.ToPoint(), _size.ToPoint());
-
-            Texture2D pixel = new Texture2D (graphics, 1,1,false, SurfaceFormat.Color);
-            pixel.SetData(new[] { Color.White });
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(pixel, destination, Rectangle.Empty, Color.LightGray, 0f, Vector2.Zero, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(_font,_text, stringPosition,Color.Black);
-            spriteBatch.End();
-        }
-    }
 }
 

@@ -1,0 +1,45 @@
+﻿using BiPolarTowerDefence.Entities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace BiPolarTowerDefence.Screens
+{
+    public class LogoScreen : GameScreen
+    {
+        private Texture2D logo;
+
+        public LogoScreen()
+        {
+        }
+
+        public override void Load()
+        {
+            logo = Game1.Game.Content.Load<Texture2D>("logo");
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            if (gameTime.TotalGameTime.Seconds > 5)
+            {
+                Deactivate();
+                var a = this.ScreenManager.screens[GameScreens.MainMenu];
+                a.Activate();
+            }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+
+            GraphicsDevice graphics = Game1.Game.GraphicsDevice;
+            SpriteBatch spriteBatch = Game1.Game.spriteBatch;
+            graphics.Clear(Color.White);
+
+            var posX = (Game1.GAME_WIDTH - (logo.Width*0.5f)) / 2;
+            var posY = (Game1.GAME_HEIGHT - (logo.Height*0.5f)) / 2;
+            spriteBatch.Begin();
+            spriteBatch.Draw(logo, new Vector2(posX,posY),null,Color.White,0f,Vector2.Zero,0.5f,SpriteEffects.None,0f);
+            spriteBatch.End();
+        }
+    }
+}

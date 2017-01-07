@@ -66,6 +66,10 @@
     <Compile Include="Interfaces\IMyGameDrawable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\GameplayScreen.cs" />
+    <Compile Include="Screens\LogoScreen.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\MenuButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
