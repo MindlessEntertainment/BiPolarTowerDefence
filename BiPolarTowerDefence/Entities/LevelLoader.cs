@@ -12,10 +12,10 @@ namespace BiPolarTowerDefence.Entities
         public LevelLoader(Level level, string basePath)
         {
             _level = level;
-            _basePath = basePath;
+            _basePath = "Content/" + basePath;
 
-            var tilesPath = basePath + "/Tiles.csv";
-            var waypointsPath = basePath + "/Waypoints.csv";
+            var tilesPath = _basePath + "/Tiles.csv";
+            var waypointsPath = _basePath + "/Waypoints.csv";
 
             if (!File.Exists(tilesPath))
             {
@@ -31,9 +31,17 @@ namespace BiPolarTowerDefence.Entities
             this.loadWaypoints(File.ReadAllLines(waypointsPath));
         }
 
-        private void loadWaypoints(string[] readAllLines)
+        private void loadWaypoints(string[] lines)
         {
-            throw new System.NotImplementedException();
+            foreach (var line in lines)
+            {
+                var items = line.Split(',');
+                if (items.Length < 2)
+                {
+                    continue;
+                }
+                _level.AddWaypoint(Int32.Parse(items[0]), Int32.Parse(items[1]));
+            }
         }
 
         private void loadTiles(string[] lines)
@@ -46,7 +54,7 @@ namespace BiPolarTowerDefence.Entities
                     continue;
                 }
 
-                _level.NewTile(Int32.Parse(items[0]), Int32.Parse(items[1]), (TileType)Int32.Parse(items[2]));
+                _level.AddTile(Int32.Parse(items[0]), Int32.Parse(items[1]), (TileType)Int32.Parse(items[2]));
             }
         }
     }

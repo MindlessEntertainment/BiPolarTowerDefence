@@ -17,6 +17,9 @@ namespace BiPolarTowerDefence
 		GameState _state;
 		SpriteFont _font;
 
+	    private Level level;
+
+
 	    public MouseState mouseState;
 
 		public Game1 ()
@@ -49,14 +52,9 @@ namespace BiPolarTowerDefence
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
-		    this.Components.Add(new Tile(this, new Vector3(0 * Tile.TILE_SIZE,0,0 * Tile.TILE_SIZE),TileType.BasaltStone));
-		    this.Components.Add(new Tile(this, new Vector3(0 * Tile.TILE_SIZE,0,4 * Tile.TILE_SIZE),TileType.SandStone));
-		    this.Components.Add(new Tile(this, new Vector3(4 * Tile.TILE_SIZE,0,2 * Tile.TILE_SIZE),TileType.Grass));
-		    this.Components.Add(new Tile(this, new Vector3(2 * Tile.TILE_SIZE,0,0 * Tile.TILE_SIZE),TileType.Desert));
-
-		    this.Components.Add(new Tower(this, new Vector3(150,-200,1)));
-		    this.Components.Add(new Enemy(this, new Vector3(1,1,1)));
 		    //TODO: use this.Content to load your game content here
+
+		    this.level = new Level(this,"Level1");
 		}
 
 		/// <summary>
@@ -100,6 +98,7 @@ namespace BiPolarTowerDefence
 
 	    private void UpdateGameplay(GameTime gameTime)
 	    {
+	        this.level.Update(gameTime);
 	    }
 
 	    private void UpdateMainMenu(GameTime gameTime)
@@ -139,7 +138,8 @@ namespace BiPolarTowerDefence
 
 	    private void DrawGameplay(GameTime gameTime)
 	    {
-	        spriteBatch.Begin();
+	        this.level.Draw(gameTime);
+	        /*spriteBatch.Begin();
 		    foreach (var item in this.Components)
 		    {
 		        var drawable = item as IMyGameDrawable;
@@ -149,6 +149,7 @@ namespace BiPolarTowerDefence
 		        }
 		    }
 		    spriteBatch.End();
+            */
 	    }
 
 		private void DrawMainMenu(GameTime gameTime)
