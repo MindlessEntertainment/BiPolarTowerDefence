@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BiPolarTowerDefence.Interfaces;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BiPolarTowerDefence.Entities

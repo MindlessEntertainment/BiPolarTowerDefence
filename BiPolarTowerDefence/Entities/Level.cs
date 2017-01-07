@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,16 +9,15 @@ namespace BiPolarTowerDefence.Entities
 {
     public class Level:GameComponent, IDrawable
     {
-        private readonly Game1 _game;
+        public readonly Game1 _game;
         private readonly int _gameHeight;
         private readonly int _gameWidth;
         private Tile[,] tiles;
-        private List<GameComponent> Components = new List<GameComponent>();
+        private List<GameComponent> _components = new List<GameComponent>();
         private List<Waypoint> Waypoints = new List<Waypoint>();
         private SpriteBatch spriteBatch;
 
-
-        public Level(Game1 game, string level, int gameHeight, int gameWidth):base(game)
+        public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
         {
             _game = game;
             _gameHeight = gameHeight;
@@ -30,12 +30,17 @@ namespace BiPolarTowerDefence.Entities
                 {
                     var tile = new Tile(_game, new Vector3(x*Tile.TILE_SIZE,0,y*Tile.TILE_SIZE),TileType.Grass);
                     tiles[x, y] = tile;
-                    this.Components.Add(tile);
+                    this._components.Add(tile);
                 }
             }
 
-            new LevelLoader(this, level);
+            new LevelLoader(this, levelName);
             SpawnEnemy(_game,this);
+
+            var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
+            this._components.Add(tower);
+            this._components.Add(new Enemy(_game,new Vector3(5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
 
@@ -48,15 +53,45 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
+            for (int i = _components.Count-1; i > 0; i--)
+            {
+                var item = _components[i];
+                if (item == null) throw new ArgumentNullException(nameof(item));
+                if (item.Enabled == false)
+                {
+                    continue;
+                }
+                item.Update(gameTime);
 
+                var collider = item as ICollider;
+                if (collider != null)
+                {
+                    foreach (var itemInner in _components)
+                    {
+                        var collidable = itemInner as ICollidable;
+                        if (collidable != null)
+                        {
+                            if (collidable.Intersects(collider))
+                            {
+                                collidable.OnCollision(collider);
+                                collider.OnCollision(collidable);
+                            }
+                        }
+                    }
+                }
+            }
             base.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            foreach (var item in Components)
+            foreach (var item in _components)
             {
+                if (item.Enabled == false)
+                {
+                    continue;
+                }
                 var drawable = item as IMyGameDrawable;
                 if (drawable != null)
                 {
@@ -81,9 +116,12 @@ namespace BiPolarTowerDefence.Entities
             Vector3 spawnPoint = new Vector3(0, 0, 0);
 			spawnPoint = level.Waypoints.First().position;
             var bob = new Enemy(_game, spawnPoint);
-            this.Components.Add(bob);
+            this._components.Add(bob);
         }
 
-
+        public void AddComponent(GameComponent component)
+        {
+            this._components.Add(component);
+        }
     }
 }
