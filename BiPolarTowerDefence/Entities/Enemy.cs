@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -41,6 +42,7 @@ namespace BiPolarTowerDefence.Entities
             if (bullet != null)
             {
                 this.Life--;
+                Console.WriteLine("HIT! Life:" + this.Life);
             }
         }
 
