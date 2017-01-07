@@ -8,4 +8,5 @@ namespace BiPolarTowerDefence.Entities
         Tier3,
         Tier4
     }
+
 }

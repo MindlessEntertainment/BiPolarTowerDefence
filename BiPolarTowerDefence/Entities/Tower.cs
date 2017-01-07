@@ -11,6 +11,9 @@ namespace BiPolarTowerDefence.Entities
         private readonly Level _level;
         private Texture2D _texture;
         private int _count = 0;
+        private TowerTechLevel _tech = TowerTechLevel.Base;
+        private int towerRange = 300;
+        private int rateOfFire = 60
 
         private float projectileSpeed = 25f;
         public TowerType type = TowerType.Normal;
@@ -36,11 +39,20 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
-            if (_count++ % 60 == 0)
+
+            switch (this._tech)
+            {
+                case TowerTechLevel.Base:
+                    break;
+                case TowerTechLevel.Tier1:
+                    break;
+            }
+
+            if (_count++ % rateOfFire == 0)
             {
                 var shotVector = new Vector3(1, -1, 0);
                 shotVector.Normalize();
-                Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, 500);
+                Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, towerRange);
             }
 
             var pos = this._game.mouseState.Position;
@@ -51,5 +63,29 @@ namespace BiPolarTowerDefence.Entities
             }
             base.Update(gameTime);
         }
+
+        public void OnUpgrade()
+        {
+            switch (this._tech)
+            {
+                case TowerTechLevel.Base:
+                    break;
+                case TowerTechLevel.Tier1:
+                    //Tower er til.
+                    break;
+                case TowerTechLevel.Tier2:
+                    // upgrade AOE
+                    break;
+                case TowerTechLevel.Tier3:
+                    towerRange = 500;
+                    break;
+                case TowerTechLevel.Tier4:
+                     rateOfFire =  30;
+                    break;
+            }
+        }
+
+
     }
+
 }
