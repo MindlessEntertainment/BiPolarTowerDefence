@@ -70,5 +70,10 @@ namespace BiPolarTowerDefence.Entities
             var thatBox = collider.GetHitbox();
             return thisBox.Intersects(thatBox);
         }
+
+        public void GoToNextWaypoint()
+        {
+
+        }
     }
 }
