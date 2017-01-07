@@ -12,13 +12,13 @@ namespace BiPolarTowerDefence
 	/// </summary>
 	public class Game1 : Game
 	{
-	    public const int BOARD_WIDHT = 30;
-	    public const int BOARD_HEIGHT = 20;
+	    public const int BOARD_WIDHT = 1024/Tile.TILE_SIZE;
+	    public const int BOARD_HEIGHT = 768/Tile.TILE_SIZE;
 
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		GameState _state;
-		SpriteFont _font;
+		public SpriteFont _font;
 
 	    public Random random = new Random();
 

@@ -27,7 +27,7 @@ namespace BiPolarTowerDefence.Entities
             {
                 for (int y = 0; y < _gameHeight; y++)
                 {
-                    var tile = new Tile(_game, new Vector3(x*Tile.TILE_SIZE,0,y*Tile.TILE_SIZE),TileType.Dirt);
+                    var tile = new Tile(_game, new Vector3(x*Tile.TILE_SIZE,0,y*Tile.TILE_SIZE),TileType.Grass);
                     tiles[x, y] = tile;
                     this.Components.Add(tile);
                 }
