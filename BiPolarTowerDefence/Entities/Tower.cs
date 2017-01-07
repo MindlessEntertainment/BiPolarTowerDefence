@@ -2,6 +2,7 @@
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BiPolarTowerDefence.Entities
 {
@@ -13,11 +14,13 @@ namespace BiPolarTowerDefence.Entities
 
         private float projectileSpeed = 25f;
         public TowerType type = TowerType.Normal;
+        private bool _isSelected;
 
         public Tower(Level level, Vector3 position) : base(level._game, position)
         {
             _level = level;
             this.Initialize();
+            _isSelected = false;
         }
 
         public override void Initialize()
@@ -38,6 +41,13 @@ namespace BiPolarTowerDefence.Entities
                 var shotVector = new Vector3(1, -1, 0);
                 shotVector.Normalize();
                 Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, 500);
+            }
+
+            var pos = this._game.mouseState.Position;
+            var rect = this.GetRect();
+            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
+            {
+                this._isSelected = true;
             }
             base.Update(gameTime);
         }

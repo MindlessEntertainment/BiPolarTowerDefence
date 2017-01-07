@@ -2,7 +2,7 @@
 
 namespace BiPolarTowerDefence.Entities
 {
-    internal class Waypoint
+    public class Waypoint
     {
         public Vector3 position;
 

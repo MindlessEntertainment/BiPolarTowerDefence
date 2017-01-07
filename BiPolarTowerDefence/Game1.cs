@@ -26,7 +26,9 @@ namespace BiPolarTowerDefence
 
 	    public MouseState mouseState;
 
-		public Game1 ()
+	    public ScreenManager ScreenManager { get; set; }
+
+	    public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
@@ -53,8 +55,8 @@ namespace BiPolarTowerDefence
 		/// </summary>
 		protected override void Initialize ()
 		{
-			_state = GameState.Gameplay;
-			_font = Content.Load<SpriteFont> ("font");
+		    _state = GameState.Gameplay;
+			_font = this.Content.Load<SpriteFont> ("font");
 
 		    base.Initialize ();
 		}
@@ -70,10 +72,12 @@ namespace BiPolarTowerDefence
 
 		    //TODO: use this.Content to load your game content here
 
+			this.ScreenManager = new ScreenManager(this);
 		    level = new Level(this,"Level1",BOARD_HEIGHT, BOARD_WIDHT);
 		}
 
-		/// <summary>
+
+	    /// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
@@ -170,18 +174,17 @@ namespace BiPolarTowerDefence
 
 		private void DrawMainMenu(GameTime gameTime)
 	    {
-			Point position 	= new Point (0,0);
-			Point size 		= new Point (100,50);
-			Vector2 stringPosition = new Vector2 (25,15);
-			Rectangle destination = new Rectangle (position, size);
 
-			Texture2D pixel = new Texture2D (GraphicsDevice, 1,1,false, SurfaceFormat.Color);
-			pixel.SetData(new[] { Color.White });
+	    	graphics.GraphicsDevice.Clear (Color.DarkSlateGray);
 
-			spriteBatch.Begin();
-			spriteBatch.Draw(pixel, destination, Rectangle.Empty, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
-			spriteBatch.DrawString(_font,"START", stringPosition,Color.Black);
-			spriteBatch.End();
+	        Vector2 size 	        = new Vector2(200,100);
+	        float buttonX = ((this.Window.ClientBounds.Width / 2)- (size.X/2));
+	        float buttonY = 200f;
+
+	        MenuButton start = new MenuButton(new Vector2 (buttonX,200f), size,"START", _font);
+	        MenuButton edit = new MenuButton(new Vector2 (buttonX,300f), size, "EditMode", _font);
+	        start.Draw(gameTime,this.GraphicsDevice, spriteBatch);
+	        edit.Draw(gameTime,this.GraphicsDevice, spriteBatch);
 	    }
 	}
 
@@ -191,5 +194,38 @@ namespace BiPolarTowerDefence
 		Gameplay,
 		EndCredits
 	}
+
+    class MenuButton
+    {
+        private Vector2 _position;
+        private Vector2 _size;
+        private string _text;
+        private SpriteFont _font;
+
+        public MenuButton(Vector2 position, Vector2 size, string text, SpriteFont font)
+        {
+            _size = size;
+            _position = position;
+            _text = text;
+            _font = font;
+
+        }
+
+        public void Draw(GameTime gameTime, GraphicsDevice graphics, SpriteBatch spriteBatch)
+        {
+            int stringX =  (int)(((_size.X/2)-(_font.MeasureString(_text).X / 2)) +_position.X);
+            int stringY =  (int)(((_size.Y/2)-(_font.MeasureString(_text).Y / 2)) +_position.Y);
+            Vector2 stringPosition = new Vector2 (stringX,stringY);
+            Rectangle destination = new Rectangle (_position.ToPoint(), _size.ToPoint());
+
+            Texture2D pixel = new Texture2D (graphics, 1,1,false, SurfaceFormat.Color);
+            pixel.SetData(new[] { Color.White });
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(pixel, destination, Rectangle.Empty, Color.LightGray, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font,_text, stringPosition,Color.Black);
+            spriteBatch.End();
+        }
+    }
 }
 

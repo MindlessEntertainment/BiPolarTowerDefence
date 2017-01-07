@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +14,7 @@ namespace BiPolarTowerDefence.Entities
         private readonly int _gameWidth;
         private Tile[,] tiles;
         private List<GameComponent> _components = new List<GameComponent>();
-        private List<Waypoint> Waypoints = new List<Waypoint>();
-
+        public List<Waypoint> Waypoints = new List<Waypoint>();
         private SpriteBatch spriteBatch;
 
         public Level(Game1 game, string levelName, int gameHeight, int gameWidth):base(game)
@@ -35,13 +35,15 @@ namespace BiPolarTowerDefence.Entities
             }
 
             new LevelLoader(this, levelName);
+            SpawnEnemy(this);
 
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
-            this._components.Add(new Enemy(_game,new Vector3(5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            ///this._components.Add(new Enemy(_game,new Vector3(5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
 
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
+
 
         public void AddTile(int X, int Y, TileType type)
         {
@@ -106,7 +108,15 @@ namespace BiPolarTowerDefence.Entities
 
         public void AddWaypoint(int X, int Y)
         {
-            this.Waypoints.Add(new Waypoint(X,Y));
+            this.Waypoints.Add(new Waypoint(X *  Tile.TILE_SIZE,Y *  Tile.TILE_SIZE));
+        }
+
+        public void SpawnEnemy(Level level)
+        {
+            Vector3 spawnPoint = new Vector3(0, 0, 0);
+			spawnPoint = level.Waypoints.First().position;
+            var bob = new Enemy(this, spawnPoint);
+            this._components.Add(bob);
         }
 
         public void AddComponent(GameComponent component)
