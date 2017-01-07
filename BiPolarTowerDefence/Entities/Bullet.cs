@@ -57,8 +57,9 @@ namespace BiPolarTowerDefence.Entities
             this.Enabled = false;
         }
 
-        public static Bullet SpawnBullet(Game1 game, Vector3 position, Vector3 velocity, BaseObject owner, float maxRange)
+        public static Bullet SpawnBullet(Level level, Vector3 position, Vector3 velocity, BaseObject owner, float maxRange)
         {
+            var game = level._game;
             Bullet bullet;
             if (sleepingBullets.Count > 0)
             {
@@ -77,7 +78,7 @@ namespace BiPolarTowerDefence.Entities
                     velocity = velocity,
                     MaxDistanceFromOwner = maxRange
                 };
-                game.Components.Add(bullet);
+                level.AddComponent(bullet);
 
             }
 

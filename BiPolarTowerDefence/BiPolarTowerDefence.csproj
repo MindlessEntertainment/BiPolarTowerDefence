@@ -54,6 +54,7 @@
     <Compile Include="Entities\LevelLoader.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tower.cs" />
+    <Compile Include="Entities\TowerType.cs" />
     <Compile Include="Entities\Waypoint.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Interfaces\ICollidable.cs" />
