@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
