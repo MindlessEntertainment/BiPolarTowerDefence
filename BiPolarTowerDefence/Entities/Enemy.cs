@@ -87,8 +87,12 @@ namespace BiPolarTowerDefence.Entities
             if (distanceVector.Length() < speed)
             {
                 WaypointIndex++;
+                if (WaypointIndex % _level.Waypoints.Count == 0)
+                {
+                    this.position = _level.Waypoints[0].position;
+                    WaypointIndex = 1;
+                }
                 distanceVector = _level.Waypoints[WaypointIndex % _level.Waypoints.Count].position - this.position;
-
             }
             distanceVector.Normalize();
             velocityVector = distanceVector * speed;
