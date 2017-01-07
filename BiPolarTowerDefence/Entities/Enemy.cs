@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BiPolarTowerDefence.Entities
@@ -14,13 +15,18 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Initialize()
         {
-            this.texture = Game.Content.Load<Texture2D>("tower");
+            this.texture = Game.Content.Load<Texture2D>("enemy");
             base.Initialize();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            this.position += Vector3.Right + Vector3.Down;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.Z,this.position.Y),new Rectangle(0,0,100,100),Color.White);
+            spriteBatch.Draw(this.texture, new Vector2(this.position.X,-this.position.Y),new Rectangle(0,0,50,50),Color.White);
         }
     }
 }

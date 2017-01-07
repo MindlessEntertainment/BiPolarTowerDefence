@@ -44,6 +44,7 @@ namespace BiPolarTowerDefence
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
 		    this.Components.Add(new Tower(this, new Vector3(1,1,1)));
+		    this.Components.Add(new Enemy(this, new Vector3(1,1,1)));
 		    //TODO: use this.Content to load your game content here
 		}
 
