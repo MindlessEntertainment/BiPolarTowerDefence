@@ -12,6 +12,9 @@ namespace BiPolarTowerDefence
 	/// </summary>
 	public class Game1 : Game
 	{
+	    public const int BOARD_WIDHT = 20;
+	    public const int BOARD_HEIGHT = 10;
+
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		GameState _state;
@@ -27,8 +30,8 @@ namespace BiPolarTowerDefence
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
 		    this.IsMouseVisible = true;
-		    graphics.PreferredBackBufferWidth = 20 * Tile.TILE_SIZE;
-		    graphics.PreferredBackBufferHeight = 10 * Tile.TILE_SIZE;
+		    graphics.PreferredBackBufferWidth = BOARD_WIDHT * Tile.TILE_SIZE;
+		    graphics.PreferredBackBufferHeight = BOARD_HEIGHT * Tile.TILE_SIZE;
 		    graphics.ApplyChanges();
 		}
 
@@ -57,7 +60,7 @@ namespace BiPolarTowerDefence
 
 		    //TODO: use this.Content to load your game content here
 
-		    this.level = new Level(this,"Level1");
+		    this.level = new Level(this,"Level1",BOARD_HEIGHT, BOARD_WIDHT);
 		}
 
 		/// <summary>

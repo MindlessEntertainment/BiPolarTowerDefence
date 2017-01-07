@@ -8,14 +8,22 @@ namespace BiPolarTowerDefence.Entities
     public class Level:GameComponent, IDrawable
     {
         private readonly Game1 _game;
+        private readonly int _gameHeight;
+        private readonly int _gameWidth;
+        private Tile[,] tiles;
         private List<GameComponent> Components = new List<GameComponent>();
         private List<Waypoint> Waypoints = new List<Waypoint>();
 
         private SpriteBatch spriteBatch;
 
-        public Level(Game1 game, string level):base(game)
+        public Level(Game1 game, string level, int gameHeight, int gameWidth):base(game)
         {
             _game = game;
+            _gameHeight = gameHeight;
+            _gameWidth = gameWidth;
+
+            tiles = new Tile[_gameWidth,_gameHeight];
+
             new LevelLoader(this, level);
 
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
