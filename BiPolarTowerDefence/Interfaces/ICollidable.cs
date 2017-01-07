@@ -1,4 +1,4 @@
-﻿namespace BiPolarTowerDefence.Entities
+﻿namespace BiPolarTowerDefence.Interfaces
 {
     public interface ICollidable
     {

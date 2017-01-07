@@ -1,4 +1,6 @@
-﻿namespace BiPolarTowerDefence.Entities
+﻿using BiPolarTowerDefence.Entities;
+
+namespace BiPolarTowerDefence.Interfaces
 {
     public interface ICollider
     {
