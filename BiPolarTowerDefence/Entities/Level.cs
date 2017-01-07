@@ -68,6 +68,10 @@ namespace BiPolarTowerDefence.Entities
                 {
                     foreach (var itemInner in _components)
                     {
+                        if (itemInner.Enabled == false)
+                        {
+                            continue;
+                        }
                         var collidable = itemInner as ICollidable;
                         if (collidable != null)
                         {
