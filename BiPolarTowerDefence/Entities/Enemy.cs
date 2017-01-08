@@ -61,12 +61,13 @@ namespace BiPolarTowerDefence.Entities
             this.setEnemyType(enemyType);
 
             MaxLife = (int) Math.Round(level.WaveNumber * level.DifficultyLevel);
+            Console.WriteLine("MaxLife: " + MaxLife + " WaveNumber: " + level.WaveNumber + " Difficutly : " + level.DifficultyLevel);
             if (MaxLife < 3)
             {
                 MaxLife = 3;
             }
 
-            speed = initialSpeed*level.WaveNumber * level.DifficultyLevel;
+            speed = initialSpeed*level.WaveNumber * level.DifficultyLevel/2;
             if (speed < initialSpeed)
             {
                 speed = initialSpeed;
@@ -128,12 +129,12 @@ namespace BiPolarTowerDefence.Entities
                 }
                 if (Life < 1)
                 {
-                    _level.addMoney(5);
+                    _level.addMoney(2);
                     _level.score(1);
                     this.Enabled = false;
                     this.enemyReuseQueue.Enqueue(this);
                 }
-                Console.WriteLine("HIT! Life:" + this.Life);
+                //Console.WriteLine("HIT! Life:" + this.Life);
             }
         }
 

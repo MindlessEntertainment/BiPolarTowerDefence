@@ -24,18 +24,22 @@ namespace BiPolarTowerDefence.Entities
             if (this.text == "+")
             {
                 this._menu.Tower.TierUp();
+                this._menu.Active = false;
             }
             else if(this.text == "1")
             {
                 this._menu.Tower.type = TowerType.Earthy;
+                this._menu.Active = false;
             }
             else if(this.text == "2")
             {
                 this._menu.Tower.type = TowerType.Fiery;
+                this._menu.Active = false;
             }
             else if(this.text == "3")
             {
                 this._menu.Tower.type = TowerType.Frosty;
+                this._menu.Active = false;
             }
         }
     }
