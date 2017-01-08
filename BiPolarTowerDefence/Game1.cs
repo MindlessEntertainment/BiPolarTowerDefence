@@ -1,6 +1,7 @@
 ﻿using System;
 using BiPolarTowerDefence.Entities;
 using BiPolarTowerDefence.Screens;
+using BiPolarTowerDefence.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,8 +25,6 @@ namespace BiPolarTowerDefence
 
 	    public Random random = new Random();
 
-	    private Level level;
-
 	    public static Game1 Game;
 
 	    public MouseState mouseState;
@@ -34,7 +33,7 @@ namespace BiPolarTowerDefence
 
 	    public Game1 ()
 		{
-			graphics = new GraphicsDeviceManager (this);
+		    graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
 		    IsMouseVisible = true;
 
@@ -62,7 +61,7 @@ namespace BiPolarTowerDefence
 		protected override void Initialize ()
 		{
 
-			Font = this.Content.Load<SpriteFont> ("font");
+			Font = Fonts.Ariel14Bold;
 		    ScreenManager = new ScreenManager(this);
 		    var splashScreen = new LogoScreen();
 		    splashScreen.Activate();
@@ -70,6 +69,8 @@ namespace BiPolarTowerDefence
 		    ScreenManager.AddScreen(GameScreens.SplashScreen, splashScreen);
 		    ScreenManager.AddScreen(GameScreens.MainMenu, menu);
 		    ScreenManager.AddScreen(GameScreens.GamePlay, new GameplayScreen());
+		    ScreenManager.AddScreen(GameScreens.GameOver, new GameOverScreen());
+		    ScreenManager.AddScreen(GameScreens.Credits, new CreditsScreen());
 		    base.Initialize ();
 		}
 
@@ -94,6 +95,7 @@ namespace BiPolarTowerDefence
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update (GameTime gameTime)
 		{
+		    Input.Instance().Update();
 		    mouseState = Mouse.GetState();
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
 			// Exit() is obsolete on iOS
@@ -105,7 +107,7 @@ namespace BiPolarTowerDefence
 			// TODO: Add your update logic here
             this.ScreenManager.Update(gameTime);
 
-			base.Update (gameTime);
+		    base.Update (gameTime);
 		}
 
 		/// <summary>

@@ -10,12 +10,14 @@ namespace BiPolarTowerDefence.Entities
     {
         SplashScreen,
         MainMenu,
-        GamePlay
+        GamePlay,
+        GameOver,
+        Credits
     }
 
     public class ScreenManager: GameComponent
     {
-        public Dictionary<GameScreens,GameScreen> screens = new Dictionary<GameScreens,GameScreen>();
+        public Dictionary<GameScreens,BaseScreen> screens = new Dictionary<GameScreens,BaseScreen>();
         public Game1 Game;
 
         public ScreenManager(Game1 game) : base(game)
@@ -23,15 +25,32 @@ namespace BiPolarTowerDefence.Entities
             Game = game;
         }
 
-        public void AddScreen(GameScreens key ,GameScreen gameScreen)
+        public void AddScreen(GameScreens key ,BaseScreen screen)
         {
-            gameScreen.ScreenManager = this;
-            this.screens.Add(key, gameScreen);
+            screen.ScreenManager = this;
+            this.screens.Add(key, screen);
         }
 
         public void RemoveScreen(GameScreens key)
         {
             this.screens.Remove(key);
+        }
+
+        public void ActivateScreen(GameScreens key,bool disableAllElse = true)
+        {
+            if (disableAllElse)
+            {
+                foreach (var screen in screens)
+                {
+                    screen.Value.Deactivate();
+                }
+            }
+            this.screens[key].Activate();
+        }
+
+        public void DeactivateScreen(GameScreens key)
+        {
+            this.screens[key].Deactivate();
         }
 
         public void Load()
@@ -42,7 +61,7 @@ namespace BiPolarTowerDefence.Entities
             }
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (var entry in screens)
             {

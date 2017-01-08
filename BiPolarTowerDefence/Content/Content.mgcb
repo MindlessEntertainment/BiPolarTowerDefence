@@ -73,3 +73,27 @@
 /processorParam:TextureFormat=Color
 /build:logo.png
 
+#begin Fonts/Ariel40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Ariel40.spritefont
+
+#begin Fonts/Ariel54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=NoChange
+/build:Fonts/Ariel54.spritefont
+
+#begin Fonts/Ariel48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Ariel48.spritefont
+
+#begin Fonts/Ariel44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Ariel44.spritefont
+

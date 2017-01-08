@@ -1,10 +1,11 @@
-﻿using BiPolarTowerDefence.Entities;
+﻿using System;
+using BiPolarTowerDefence.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BiPolarTowerDefence.Screens
 {
-    public class LogoScreen : GameScreen
+    public class LogoScreen : BaseScreen
     {
         private Texture2D logo;
         int mAlphaValue = 1;
@@ -29,11 +30,9 @@ namespace BiPolarTowerDefence.Screens
                 mAlphaValue += mFadeIncrement;
             }
 
-            if (gameTime.TotalGameTime.Seconds > 5)
+            if (gameTime.TotalGameTime.Seconds-ActivationTime > 5)
             {
-                Deactivate();
-                var a = this.ScreenManager.screens[GameScreens.MainMenu];
-                a.Activate();
+                this.ScreenManager.ActivateScreen(GameScreens.MainMenu);
             }
         }
 

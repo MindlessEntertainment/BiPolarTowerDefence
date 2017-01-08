@@ -8,11 +8,13 @@ namespace BiPolarTowerDefence.Entities
         Hidden
     }
 
-    public abstract class GameScreen
+    public abstract class BaseScreen
     {
         public ScreenManager ScreenManager { get; internal set; }
 
         public ScreenState ScreenState { get; protected set; } = ScreenState.Hidden;
+
+        public int ActivationTime { get; protected set; }
 
         public virtual void Activate()
         {

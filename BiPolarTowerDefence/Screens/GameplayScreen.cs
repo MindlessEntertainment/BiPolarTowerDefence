@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace BiPolarTowerDefence.Screens
 {
-    public class GameplayScreen : GameScreen
+    public class GameplayScreen : BaseScreen
     {
         private Level level;
 

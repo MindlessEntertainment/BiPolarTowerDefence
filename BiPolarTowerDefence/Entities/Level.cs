@@ -49,16 +49,16 @@ namespace BiPolarTowerDefence.Entities
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
 
-            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
 
 
 
@@ -111,7 +111,7 @@ namespace BiPolarTowerDefence.Entities
             }
             if (life < 1)
             {
-                Game.Exit ();
+                _game.ScreenManager.ActivateScreen(GameScreens.GameOver);
             }
 
             if (count++ % 30 == 0)
