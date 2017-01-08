@@ -16,10 +16,9 @@ namespace BiPolarTowerDefence.Entities
             width = 120;
             height = 20;
 
-            TowerButtons.Add(new TowerButton(game , position+offset*1, "1"));
+            TowerButtons.Add(new TowerButton(game , position+offset*1, "+"));
             TowerButtons.Add(new TowerButton(game , position+offset*2, "2"));
             TowerButtons.Add(new TowerButton(game , position+offset*3, "3"));
-            
         }
 
         public void Update(GameTime gameTime)

@@ -14,7 +14,7 @@ namespace BiPolarTowerDefence.Entities
         private Color buttonColor;
         private Color hoverButtonColor;
         private Color currentbuttonColor;
-        private string text;
+        protected string text;
 
         public BaseButton(Game1 game, Vector3 position, string text) : base(game, position)
         {

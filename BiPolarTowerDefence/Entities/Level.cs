@@ -163,7 +163,7 @@ namespace BiPolarTowerDefence.Entities
                 }
             }
 
-            // Draw Hello World
+            // Hér eru GUI hlutir
             var Font1 = _game.Font;
             string output1 =  coin + " : Coins";
             Vector2 FontOrigin1 = new Vector2(Font1.MeasureString(output1).X,0);

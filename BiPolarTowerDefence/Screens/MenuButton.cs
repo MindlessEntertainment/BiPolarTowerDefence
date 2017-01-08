@@ -25,9 +25,6 @@ namespace BiPolarTowerDefence.Screens
                 case MenuButtons.START:
                     this._screen.ScreenManager.ActivateScreen(GameScreens.GamePlay);
                     break;
-                case MenuButtons.EDIT:
-                    //this._screen.ScreenManager.ActivateScreen(GameScreens.GamePlay);
-                    break;
                 case MenuButtons.EXIT:
                     this._game.Exit();
                     break;

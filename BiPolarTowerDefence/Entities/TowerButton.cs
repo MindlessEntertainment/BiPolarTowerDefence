@@ -18,7 +18,16 @@ namespace BiPolarTowerDefence.Entities
 
         public override void HandleClick()
         {
+            if (this.text == "+")
+            {
+                this.TowerButtonMenu.Tower.TierUp();
+            }
+            else
+            {
 
+            }
         }
+
+        public TowerButtonMenu TowerButtonMenu { get; set; }
     }
 }
