@@ -145,3 +145,21 @@
 /processorParam:TextureFormat=Color
 /build:water.png
 
+#begin Level1/Wavesettings.csv
+/copy:Level1/Wavesettings.csv
+
+#begin Level1/Towers.csv
+/copy:Level1/Towers.csv
+
+#begin main-menu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:main-menu.png
+

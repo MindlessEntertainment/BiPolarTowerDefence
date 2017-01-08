@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,7 @@ namespace BiPolarTowerDefence.Entities
         private Tile[,] tiles;
         private List<GameComponent> _components = new List<GameComponent>();
         public List<Waypoint> Waypoints = new List<Waypoint>();
+        public List<Wave> Waves = new List<Wave>();
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
@@ -102,10 +104,22 @@ namespace BiPolarTowerDefence.Entities
                 _game.ScreenManager.ActivateScreen(GameScreens.GameOver);
             }
 
-            if (count++ % 30 == 0)
+            Vector3 waveVector = new Vector3(0,0,0);
+            waveVector = Waves[WaveNumber].TheWave;
+
+            if(count++ % 30 == 0)
             {
-                SpawnEnemy(this);
+                SpawnEnemy(this, (int) waveVector.X, 0);
             }
+            if(count++ % 31 == 0)
+            {
+                SpawnEnemy(this, (int) waveVector.Y, 1);
+            }
+            if(count++ % 32 == 0)
+            {
+                SpawnEnemy(this, (int)waveVector.Z, 2);
+            }
+
             base.Update(gameTime);
         }
 
@@ -157,11 +171,20 @@ namespace BiPolarTowerDefence.Entities
             this.Waypoints.Add(new Waypoint(X *  Tile.TILE_SIZE,Y *  Tile.TILE_SIZE));
         }
 
-        public void SpawnEnemy(Level level)
+        public void AddWave(int Frosty, int Fiery, int Earthy)
         {
+            this.Waves.Add(new Wave(Frosty,Fiery,Earthy));
+        }
 
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,3)){position = new Vector3(-10,0,0)});
+        public void SpawnEnemy(Level level,int i,int type)
+        {
+            AddComponent(new Enemy(this, (EnemyType) type) {position = this.Waypoints[0].position});
+        }
 
+
+        public void incramentWave()
+        {
+            WaveNumber += 1;
         }
 
         public void AddComponent(GameComponent component)
@@ -207,7 +230,13 @@ namespace BiPolarTowerDefence.Entities
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(10* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(15* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 10 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+        }
+
+
+        public void AddTower(int X, int Y)
+        {
+            AddComponent(new Tower(this, new Vector3(X * Tile.TILE_SIZE, 0, Y * Tile.TILE_SIZE)));
         }
     }
 }

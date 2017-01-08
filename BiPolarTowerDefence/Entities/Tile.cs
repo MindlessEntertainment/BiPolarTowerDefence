@@ -9,7 +9,7 @@ namespace BiPolarTowerDefence.Entities
         private static Texture2D texture;
 
         public const int TILE_SIZE = 48;
-        public const int TILE_SOURCE_SIZE = 64;
+        public const int TILE_SOURCE_SIZE = 300;
 
         private readonly Game1 _game;
         public TileType Type;
@@ -21,7 +21,6 @@ namespace BiPolarTowerDefence.Entities
             _game = game;
             Type = type;
             LoadContent(game);
-            offset = _game.random.Next(0, 3)*2;
             this.height = TILE_SIZE;
             this.width = TILE_SIZE;
         }
@@ -37,18 +36,45 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,this.GetRect(),new Rectangle(offset * TILE_SOURCE_SIZE ,(int)Type * TILE_SOURCE_SIZE, TILE_SOURCE_SIZE, TILE_SOURCE_SIZE),Color.White);
+            var index = TileTextureIndex.Grass;
+            switch (Type)
+            {
+                case TileType.Path:
+                    index = TileTextureIndex.Path;
+                    break;
+                case TileType.Grass:
+                    index = TileTextureIndex.Grass;
+                    break;
+                case TileType.StonyGrass:
+                    index = TileTextureIndex.StonyGrass;
+                    break;
+                case TileType.ChippyGrass:
+                    index = TileTextureIndex.ChippyGrass;
+                    break;
+                case TileType.DirtyGrass:
+                    index = TileTextureIndex.DirtyGrass;
+                    break;
+            }
+            spriteBatch.Draw(texture,this.GetRect(),new Rectangle((int)index * TILE_SOURCE_SIZE ,0 * TILE_SOURCE_SIZE, TILE_SOURCE_SIZE, TILE_SOURCE_SIZE),Color.White);
             //spriteBatch.DrawString(_game._font,offset.ToString(),new Vector2(position.X,position.Z) + new Vector2(8,8),Color.White );
         }
     }
 
     public enum TileType
     {
-        BasaltStone,
-        Desert,
+        Path,
         Grass,
-        Dirt,
-        SandStone
+        StonyGrass,
+        ChippyGrass,
+        DirtyGrass,
+    }
 
+    public enum TileTextureIndex
+    {
+        Grass,
+        StonyGrass,
+        ChippyGrass,
+        DirtyGrass,
+        Path,
     }
 }
