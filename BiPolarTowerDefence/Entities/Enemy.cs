@@ -164,7 +164,7 @@ namespace BiPolarTowerDefence.Entities
                     _enemyType = EnemyType.Fiery;
                     break;
                 case EnemyType.Normal:
-                    _enemyType = EnemyType.Earthy;
+                    _enemyType = (EnemyType)Enum.ToObject(typeof(EnemyType) , _game.random.Next(0,3));
                     break;
             }
         }
