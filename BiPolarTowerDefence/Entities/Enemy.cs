@@ -192,24 +192,24 @@ namespace BiPolarTowerDefence.Entities
                 case EnemyType.Earthy:
                     currentTexture = earthyTexture;
                     this.animationFrameCount = 6;
-                    this.animationFramesByCell = 5;
+                    this.animationFramesByCell = 4;
                     this.deathAnimationFrameCount = 7;
-                    this.deathAnimationFramesByCell = 5;
+                    this.deathAnimationFramesByCell = 4;
                     break;
 
                 case EnemyType.Fiery:
                     currentTexture = fieryTexture;
                     this.animationFrameCount = 10;
-                    this.animationFramesByCell = 5;
+                    this.animationFramesByCell = 4;
                     this.deathAnimationFrameCount = 6;
-                    this.deathAnimationFramesByCell = 5;
+                    this.deathAnimationFramesByCell = 4;
                     break;
                 case EnemyType.Frosty:
                     currentTexture = frostyTexture;
                     this.animationFrameCount = 6;
-                    this.animationFramesByCell = 5;
+                    this.animationFramesByCell = 4;
                     this.deathAnimationFrameCount = 5;
-                    this.deathAnimationFramesByCell = 5;
+                    this.deathAnimationFramesByCell = 4;
                     break;
             }
         }
