@@ -17,6 +17,7 @@ namespace BiPolarTowerDefence.Entities
             var tilesPath = _basePath + "/Tiles.csv";
             var waypointsPath = _basePath + "/Waypoints.csv";
             var waveInformationPath = _basePath + "/Wavesettings.csv";
+            var towerPath= _basePath + "/Towers.csv";
 
             if (!File.Exists(tilesPath))
             {
@@ -33,9 +34,28 @@ namespace BiPolarTowerDefence.Entities
                 throw new FileNotFoundException("Cannot find a file by the name of:" + waveInformationPath);
             }
 
+            if (!File.Exists(towerPath))
+            {
+                throw new FileNotFoundException("Cannot find a file by the name of:" + towerPath);
+            }
+
             this.loadTiles(File.ReadAllLines(tilesPath));
             this.loadWaypoints(File.ReadAllLines(waypointsPath));
             this.loadWaveInformation(File.ReadAllLines(waveInformationPath));
+            this.loadTowers(File.ReadAllLines(towerPath));
+        }
+
+        private void loadTowers(string[] lines)
+        {
+            foreach (var line in lines)
+            {
+                var items = line.Split(',');
+                if (items.Length < 2)
+                {
+                    continue;
+                }
+                _level.AddTower(Int32.Parse(items[0]), Int32.Parse(items[1]));
+            }
         }
 
         private void loadWaypoints(string[] lines)

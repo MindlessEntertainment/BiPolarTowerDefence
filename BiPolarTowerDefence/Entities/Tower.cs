@@ -42,6 +42,16 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (_tech == TowerTechLevel.Base)
+            {
+
+                var t = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
+                t.SetData(new[]{Color.White});
+
+                spriteBatch.Draw(t,this.GetRect(),Color.LightSlateGray);
+                return;
+            }
+
             var animationIndex = 0;
             var angleDiff = Math.Abs(Math.Abs(shotVector.X) - Math.Abs(shotVector.Z));
             if (angleDiff > 0.5)
@@ -103,11 +113,6 @@ namespace BiPolarTowerDefence.Entities
                 }
             }
 
-            var t = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
-            t.SetData(new[]{Color.White});
-
-            spriteBatch.Draw(t,this.GetRect(),Color.Green);
-
             var towerColor = Color.White;
             switch (type)
             {
@@ -132,6 +137,7 @@ namespace BiPolarTowerDefence.Entities
             switch (this._tech)
             {
                 case TowerTechLevel.Base:
+                    return; //Don't do anything if we are no tower at all
                     break;
                 case TowerTechLevel.Tier1:
                     break;

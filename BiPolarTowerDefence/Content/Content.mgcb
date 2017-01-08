@@ -61,10 +61,6 @@
 #begin Level1/Waypoints.csv
 /copy:Level1/Waypoints.csv
 
-#begin Level1/Wavesettings.csv
-/copy:Level1/Wavesettings.csv
-
-
 #begin logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -148,4 +144,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:water.png
+
+#begin Level1/Wavesettings.csv
+/copy:Level1/Wavesettings.csv
+
+#begin Level1/Towers.csv
+/copy:Level1/Towers.csv
 
