@@ -1,5 +1,6 @@
 ﻿using System;
 using BiPolarTowerDefence.Interfaces;
+using BiPolarTowerDefence.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -54,7 +55,6 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
-
             switch (this._tech)
             {
                 case TowerTechLevel.Base:
@@ -72,11 +72,27 @@ namespace BiPolarTowerDefence.Entities
             var rect = this.GetRect();
             if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
             {
+                deselectAllTowers();
                 this._isSelected = true;
+                var newPos = position + new Vector3(-10,0,-50);
+                this._level.TowerMenu.PositionUpdate(newPos);
+                this._level.TowerMenu.Active = true;
+                this._level.TowerMenu.Tower = this;
             }
 
-
             base.Update(gameTime);
+        }
+
+        private void deselectAllTowers()
+        {
+            foreach (var item in this._level.getComponents())
+            {
+                var tower = item as Tower;
+                if (tower != null)
+                {
+                    tower.Deselect();
+                }
+            }
         }
 
         private void shootBullet()
@@ -148,8 +164,6 @@ namespace BiPolarTowerDefence.Entities
                 Console.WriteLine(shotVector);
                 Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
             }
-
-
         }
 
         private void TierUp()
@@ -218,6 +232,10 @@ namespace BiPolarTowerDefence.Entities
         }
 
 
+        public void Deselect()
+        {
+            this._isSelected = false;
+        }
     }
 
 }

@@ -12,7 +12,8 @@ namespace BiPolarTowerDefence.Screens
     public enum MenuButtons
     {
         START,
-        EDIT
+        EDIT,
+        EXIT
     }
 
     public class MainMenuScreen : BaseScreen
@@ -31,6 +32,7 @@ namespace BiPolarTowerDefence.Screens
             MenuButton edit = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,300f), "EDIT",this,MenuButtons.EDIT);
             menuButtons.Add(start);
             menuButtons.Add(edit);
+            menuButtons.Add(new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,300f), "EXIT",this,MenuButtons.EXIT));
         }
 
         public override void Update(GameTime gameTime)
@@ -53,21 +55,6 @@ namespace BiPolarTowerDefence.Screens
             foreach (var button in menuButtons)
             {
                 button.Draw(gameTime);
-            }
-        }
-
-        public void HandleClick(MenuButtons button)
-        {
-            switch (button)
-            {
-                case MenuButtons.START:
-                    Deactivate();
-                    var a = this.ScreenManager.screens[GameScreens.GamePlay];
-                    a.Activate();
-                    break;
-                case MenuButtons.EDIT:
-
-                    break;
             }
         }
     }

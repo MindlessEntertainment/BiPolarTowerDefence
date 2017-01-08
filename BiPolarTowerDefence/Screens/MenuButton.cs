@@ -20,7 +20,18 @@ namespace BiPolarTowerDefence.Screens
 
         public override void HandleClick()
         {
-            _screen.HandleClick(Menubutton);
+            switch (this.Menubutton)
+            {
+                case MenuButtons.START:
+                    this._screen.ScreenManager.ActivateScreen(GameScreens.GamePlay);
+                    break;
+                case MenuButtons.EDIT:
+                    //this._screen.ScreenManager.ActivateScreen(GameScreens.GamePlay);
+                    break;
+                case MenuButtons.EXIT:
+                    this._game.Exit();
+                    break;
+            }
         }
     }
 }
