@@ -61,6 +61,10 @@
 #begin Level1/Waypoints.csv
 /copy:Level1/Waypoints.csv
 
+#begin Level1/Wavesettings.csv
+/copy:Level1/Wavesettings.csv
+
+
 #begin logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
