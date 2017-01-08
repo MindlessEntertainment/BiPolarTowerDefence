@@ -145,3 +145,9 @@
 /processorParam:TextureFormat=Color
 /build:water.png
 
+#begin Level1/Wavesettings.csv
+/copy:Level1/Wavesettings.csv
+
+#begin Level1/Towers.csv
+/copy:Level1/Towers.csv
+
