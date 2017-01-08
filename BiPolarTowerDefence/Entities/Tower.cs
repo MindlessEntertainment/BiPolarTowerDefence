@@ -69,9 +69,9 @@ namespace BiPolarTowerDefence.Entities
                     {
                         animationIndex = 4;//Left
 
-                        Console.WriteLine(shotVector);
-                        Console.WriteLine(angleDiff);
-                        Console.WriteLine("Left");
+                        //Console.WriteLine(shotVector);
+                        //Console.WriteLine(angleDiff);
+                        //Console.WriteLine("Left");
                     }
                 }
                 else //Vertical

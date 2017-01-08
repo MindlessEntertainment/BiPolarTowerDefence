@@ -59,8 +59,6 @@ namespace BiPolarTowerDefence.Entities
             this.Initialize();
 
             this.setEnemyType(enemyType);
-            Console.WriteLine("Sawning new " + enemyType);
-
 
             MaxLife = (int) Math.Round(level.WaveNumber * level.DifficultyLevel);
             if (MaxLife < 3)

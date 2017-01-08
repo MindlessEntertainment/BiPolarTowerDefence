@@ -136,16 +136,16 @@ namespace BiPolarTowerDefence.Entities
                 Vector3 waveVector = new Vector3(0,0,0);
                 waveVector = Waves[WaveNumber++].TheWave;
                 FrostyCountdown = (int) waveVector.X;
-                Console.WriteLine("Frosty count " + FrostyCountdown);
+                //Console.WriteLine("Frosty count " + FrostyCountdown);
                 FieryCountdown = (int) waveVector.Y;
-                Console.WriteLine("Fiery count " + FieryCountdown);
+                //Console.WriteLine("Fiery count " + FieryCountdown);
                 EarthyCountdown = (int) waveVector.Z;
-                Console.WriteLine("Earthy count " + EarthyCountdown);
+                //Console.WriteLine("Earthy count " + EarthyCountdown);
             }
 
             if (count++ % 30 == 0)
             {
-                Console.WriteLine("Spawn count " + spawnCount);
+                //Console.WriteLine("Spawn count " + spawnCount);
                 if (spawnCount == 1 && EarthyCountdown > 0)
                 {
                     SpawnEnemy(this, 0);
@@ -265,7 +265,7 @@ namespace BiPolarTowerDefence.Entities
         {
             var enemyType = (EnemyType) type;
             var enemy = new Enemy(this,enemyType) {position = this.Waypoints[0].position};
-            Console.WriteLine("Type " + enemyType + " from " + type);
+            //Console.WriteLine("Type " + enemyType + " from " + type);
             AddComponent(enemy);
         }
 
