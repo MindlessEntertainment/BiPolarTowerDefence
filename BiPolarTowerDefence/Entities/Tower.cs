@@ -107,8 +107,23 @@ namespace BiPolarTowerDefence.Entities
             t.SetData(new[]{Color.White});
 
             spriteBatch.Draw(t,this.GetRect(),Color.Green);
+
+            var towerColor = Color.White;
+            switch (type)
+            {
+                case TowerType.Earthy:
+                    towerColor = Color.Green;
+                    break;
+                case TowerType.Fiery:
+                    towerColor = Color.Red;
+                    break;
+                case TowerType.Frosty:
+                    towerColor = Color.Blue;
+                    break;
+            }
+
             //spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(this.height - Tile.TILE_SIZE/2, this.width/2),SpriteEffects.None, 1f );
-            spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(animationIndex * SpriteAnimationWidth,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(0,0),SpriteEffects.None, 1f );
+            spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(animationIndex * SpriteAnimationWidth,0,SpriteAnimationWidth,SpriteAnimationHeight),towerColor,0f,new Vector2(0,0),SpriteEffects.None, 1f );
         }
 
         public override void Update(GameTime gameTime)
