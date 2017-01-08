@@ -138,6 +138,44 @@ namespace BiPolarTowerDefence.Entities
 
         }
 
+        private void TierUp()
+        {
+            if (_tech == TowerTechLevel.Base)
+            {
+                if (_level.PayUp(10))
+                {
+                    _tech = TowerTechLevel.Tier1;
+                    OnUpgrade();
+                }
+
+            }
+            else if (_tech == TowerTechLevel.Tier1)
+            {
+                if (_level.PayUp(500))
+                {
+                    _tech = TowerTechLevel.Tier2;
+                    OnUpgrade();
+                }
+            }
+            else if (_tech == TowerTechLevel.Tier2)
+            {
+                if (_level.PayUp(1000))
+                {
+                    _tech = TowerTechLevel.Tier3;
+                    OnUpgrade();
+                }
+                else if (_tech == TowerTechLevel.Tier3)
+                {
+                    if (_level.PayUp(2000))
+                    {
+                        _tech = TowerTechLevel.Tier4;
+                        OnUpgrade();
+                    }
+                }
+
+            }
+        }
+
         public void OnUpgrade()
         {
             switch (this._tech)

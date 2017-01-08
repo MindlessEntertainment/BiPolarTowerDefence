@@ -18,7 +18,7 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
-        int coin = 100;
+        public int coin = 100;
         private int life = 10;
         private int killCount = 0;
 
@@ -198,6 +198,17 @@ namespace BiPolarTowerDefence.Entities
         public IEnumerable<GameComponent> getComponents()
         {
             return _components;
+        }
+
+        public bool PayUp(int i)
+        {
+            if (i <= coin)
+            {
+                coin -= i;
+                return true;
+            }
+            return false;
+
         }
     }
 }
