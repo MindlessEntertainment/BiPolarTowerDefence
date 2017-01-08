@@ -107,15 +107,15 @@ namespace BiPolarTowerDefence.Entities
             Vector3 waveVector = new Vector3(0,0,0);
             waveVector = Waves[WaveNumber].TheWave;
 
-            if(count++ % 12 == 0)
+            if(count++ % 30 == 0)
             {
                 SpawnEnemy(this, (int) waveVector.X, 0);
             }
-            if(count++ % 14 == 0)
+            if(count++ % 31 == 0)
             {
                 SpawnEnemy(this, (int) waveVector.Y, 1);
             }
-            if(count++ % 16 == 0)
+            if(count++ % 32 == 0)
             {
                 SpawnEnemy(this, (int)waveVector.Z, 2);
             }
