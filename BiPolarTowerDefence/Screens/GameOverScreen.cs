@@ -20,6 +20,8 @@ namespace BiPolarTowerDefence.Screens
 
             if (gameTime.TotalGameTime.Seconds-ActivationTime > 2)
             {
+                ActivationTime = 0;
+                this.ScreenManager.ReloadScreen(GameScreens.GamePlay);
                 this.ScreenManager.ActivateScreen(GameScreens.Credits);
             }
         }

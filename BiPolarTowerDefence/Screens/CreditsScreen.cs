@@ -20,6 +20,7 @@ namespace BiPolarTowerDefence.Screens
 
             if (gameTime.TotalGameTime.Seconds-ActivationTime > 5)
             {
+                ActivationTime = 0;
                 this.ScreenManager.ActivateScreen(GameScreens.MainMenu);
             }
         }

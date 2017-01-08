@@ -84,5 +84,10 @@ namespace BiPolarTowerDefence.Entities
                 screen.Draw(gameTime);
             }
         }
+
+        public void ReloadScreen(GameScreens gamePlay)
+        {
+            this.screens[gamePlay].Load();
+        }
     }
 }
