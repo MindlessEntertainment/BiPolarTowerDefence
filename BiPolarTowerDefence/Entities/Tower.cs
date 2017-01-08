@@ -12,12 +12,14 @@ namespace BiPolarTowerDefence.Entities
         private Texture2D _texture;
         private int _count = 0;
         private TowerTechLevel _tech = TowerTechLevel.Base;
-        private int towerRange = 300;
+        private int towerRange = Tile.TILE_SIZE*3;
         private int rateOfFire = 60;
-
+        private string turretTargetSetting = "LowHealth..";
         private float projectileSpeed = 25f;
         public TowerType type = TowerType.Normal;
         private bool _isSelected;
+        private Vector3 shotVector;
+
 
         public Tower(Level level, Vector3 position) : base(level._game, position)
         {
@@ -51,8 +53,6 @@ namespace BiPolarTowerDefence.Entities
             if (_count++ % rateOfFire == 0)
             {
                 this.shootBullet();
-                var shotVector = new Vector3(1, -1, 0);
-                shotVector.Normalize();
                 Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, towerRange);
             }
 
@@ -67,15 +67,112 @@ namespace BiPolarTowerDefence.Entities
 
         private void shootBullet()
         {
+            Enemy myTarget = null;
+            float currentDistance =float.MaxValue;
+            int currentlife =int.MaxValue;
+
             foreach (var item in _level.getComponents())
             {
                 var enemy = item as Enemy;
                 if (enemy != null && enemy.Enabled)
                 {
                     var distance = (this.position - enemy.position).Length();
+                    if (distance < (float) towerRange)
+                    {
+                        var enemyLifeStatus = enemy.Life;
+                        var enemytypeStatus = enemy.EnemyType;
+                        switch (turretTargetSetting)
+                        {
+                            case "LowHealth":
+                                if (enemyLifeStatus < currentlife)
+                                {
+                                    myTarget = enemy;
+                                    currentDistance = distance;
+                                    currentlife = enemyLifeStatus;
+                                }
+                                break;
+                            case "HighHealth":
+                                if (enemyLifeStatus > currentlife)
+                                {
+                                    myTarget = enemy;
+                                    currentDistance = distance;
+                                    currentlife = enemyLifeStatus;
+                                }
+                                break;
+                            default:
+                                if (distance < currentDistance)
+                                {
+                                    myTarget = enemy;
+                                    currentDistance = distance;
+                                    currentlife = enemyLifeStatus;
+                                }
+                                break;
+
+                        }
 
 
+//                        if (distance < towerRange && (int) this.type == (int) enemy.EnemyType)
+//                        {
+//                            myTarget = enemy;
+//                            continue;
+//                        }
+                    }
                 }
+
+            }
+            if (myTarget != null && myTarget.Enabled)
+            {
+                Vector3 targetVector = new Vector3(0,0,0);
+                Vector3 targetVelocityVector = new Vector3(0,0,0);
+                Vector3 enemyVelocityVector = new Vector3(0,0,0);
+                targetVector = myTarget.position - this.position;
+                targetVector.Normalize();
+                targetVelocityVector = targetVector * projectileSpeed;
+                enemyVelocityVector = myTarget.VelocityVector;
+                shotVector = targetVelocityVector + enemyVelocityVector;
+                shotVector.Normalize();
+                Console.WriteLine(shotVector);
+
+            }
+
+
+        }
+
+        private void TierUp()
+        {
+            if (_tech == TowerTechLevel.Base)
+            {
+                if (_level.PayUp(10))
+                {
+                    _tech = TowerTechLevel.Tier1;
+                    OnUpgrade();
+                }
+
+            }
+            else if (_tech == TowerTechLevel.Tier1)
+            {
+                if (_level.PayUp(500))
+                {
+                    _tech = TowerTechLevel.Tier2;
+                    OnUpgrade();
+                }
+            }
+            else if (_tech == TowerTechLevel.Tier2)
+            {
+                if (_level.PayUp(1000))
+                {
+                    _tech = TowerTechLevel.Tier3;
+                    OnUpgrade();
+                }
+                else if (_tech == TowerTechLevel.Tier3)
+                {
+                    if (_level.PayUp(2000))
+                    {
+                        _tech = TowerTechLevel.Tier4;
+                        OnUpgrade();
+                    }
+                }
+
             }
         }
 

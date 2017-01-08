@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseButton.cs" />
     <Compile Include="Entities\BaseObject.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\Direction.cs" />

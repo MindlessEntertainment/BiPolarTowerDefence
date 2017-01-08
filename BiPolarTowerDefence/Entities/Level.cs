@@ -18,7 +18,7 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
-        int coin = 100;
+        public int coin = 100;
         private int life = 10;
         private int killCount = 0;
 
@@ -49,12 +49,12 @@ namespace BiPolarTowerDefence.Entities
             var tower = new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2));
             this._components.Add(tower);
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-            //AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
 
-            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
+            AddComponent(new Tower(this, new Vector3(10* Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
             //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
             //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
             //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
@@ -203,6 +203,17 @@ namespace BiPolarTowerDefence.Entities
         public IEnumerable<GameComponent> getComponents()
         {
             return _components;
+        }
+
+        public bool PayUp(int i)
+        {
+            if (i <= coin)
+            {
+                coin -= i;
+                return true;
+            }
+            return false;
+
         }
     }
 }
