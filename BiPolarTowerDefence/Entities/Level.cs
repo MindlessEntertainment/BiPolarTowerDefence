@@ -42,7 +42,6 @@ namespace BiPolarTowerDefence.Entities
             }
 
             new LevelLoader(this, levelName);
-            SpawnEnemy(this);
 
 
 

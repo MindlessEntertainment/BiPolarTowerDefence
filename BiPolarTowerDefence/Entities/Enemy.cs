@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using BiPolarTowerDefence.Interfaces;
@@ -14,7 +15,7 @@ namespace BiPolarTowerDefence.Entities
         public Queue<Enemy> enemyReuseQueue = new Queue<Enemy>();
         private readonly Level _level;
         private readonly Game1 _game;
-        private static Texture2D texture;
+        private Texture2D currentTexture;
         private static Texture2D earthyTexture;
         private static Texture2D fieryTexture;
         private static Texture2D frostyTexture;
@@ -22,13 +23,21 @@ namespace BiPolarTowerDefence.Entities
         private static Texture2D textureHealth;
 
         private EnemyType _enemyType;
-        public EnemyType EnemyType { get { return _enemyType; }}
+        public EnemyType EnemyType {
+            get
+            {
+                return _enemyType;
+            }
+            private set{
+                this.setEnemyType(value);
+            }
+        }
         public Direction myDirection;
         public int Life { get; private set; }
-        public int MaxLife;
-        public int LifeWidth = 50;
-        public const int defaultSpriteWidth = 50;
-        public const int defaultSpriteHeight = 50;
+        private int MaxLife;
+        private const int lifeBarWidth = 50;
+        private const int spriteCellWidth = 600;
+        private const int spriteCellHeight = 600;
         private float speed;
         private const float initialSpeed = 3;
         private Vector3 distanceVector;
@@ -36,12 +45,22 @@ namespace BiPolarTowerDefence.Entities
         private Vector3 velocityVector;
         public Vector3 VelocityVector { get { return velocityVector; }}
 
+        //Animation variables
+        private int animationIndex;
+        private int animationFrameCount = 1;
+        private int deathAnimationFrameCount = 1;
+        private int animationFramesByCell = 1;
+        private int deathAnimationFramesByCell = 1;
+
         public Enemy(Level level,EnemyType enemyType) : base(level._game, Vector3.Zero)
         {
-            Console.WriteLine("Sawning new " + enemyType);
-            _level = level;
-            _enemyType = enemyType;
             _game = level._game;
+            _level = level;
+            this.Initialize();
+
+            this.setEnemyType(enemyType);
+            Console.WriteLine("Sawning new " + enemyType);
+
 
             MaxLife = (int) Math.Round(level.WaveNumber * level.DifficultyLevel);
             if (MaxLife < 3)
@@ -56,20 +75,19 @@ namespace BiPolarTowerDefence.Entities
             }
             this.height = 32;
             this.width = 32;
-            this.Initialize();
         }
 
         public override void Initialize()
         {
-            if (texture == null)
+            if (earthyTexture == null)
             {
-                texture = Game.Content.Load<Texture2D>("enemy");
+                //texture = Game.Content.Load<Texture2D>("enemy");
                 textureHealth = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
                 textureHealth.SetData(new[]{Color.White});
 
                 earthyTexture = Game.Content.Load<Texture2D>("grasssprite");
                 fieryTexture = Game.Content.Load<Texture2D>("fire");
-
+                frostyTexture = Game.Content.Load<Texture2D>("water");
 
             }
             this.Life = 3;
@@ -86,29 +104,11 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Texture2D currentTexture = texture;
-            var spriteFrameHeight = defaultSpriteWidth;
-            var spriteFrameWidth = defaultSpriteHeight;
-            switch (this._enemyType)
-            {
-                case EnemyType.Earthy:
-                    currentTexture = earthyTexture;
-                    spriteFrameHeight = 600;
-                    spriteFrameWidth = 600;
-                    break;
+            Debug.Assert(currentTexture != null, "currentTexture != null");
+            spriteBatch.Draw(currentTexture, destinationRectangle: this.GetRect(),sourceRectangle: new Rectangle(0,0,spriteCellWidth,spriteCellHeight),color: Color.White);
 
-                case EnemyType.Fiery:
-                    currentTexture = fieryTexture;
-                    spriteFrameHeight = 600;
-                    spriteFrameWidth = 600;
-                    break;
-
-            }
-
-            spriteBatch.Draw(currentTexture, this.GetRect(),new Rectangle(0,0,spriteFrameWidth,spriteFrameHeight),Color.White);
-
-            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X-1,(int)position.Z-1, LifeWidth, 7),Color.Gray);
-            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X,(int)position.Z, LifeWidth/MaxLife*Life, 5),Color.Green);
+            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X-1,(int)position.Z-1, lifeBarWidth, 7),Color.Gray);
+            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X,(int)position.Z, lifeBarWidth/MaxLife*Life, 5),Color.Green);
         }
 
         public void OnCollision(ICollider collider)
@@ -175,6 +175,37 @@ namespace BiPolarTowerDefence.Entities
                     break;
                 case EnemyType.Normal:
                     _enemyType = (EnemyType)Enum.ToObject(typeof(EnemyType) , _game.random.Next(0,3));
+                    break;
+            }
+        }
+
+        public void setEnemyType(EnemyType enemyType)
+        {
+            _enemyType = enemyType;
+
+            switch (this._enemyType)
+            {
+                case EnemyType.Earthy:
+                    currentTexture = earthyTexture;
+                    this.animationFrameCount = 8;
+                    this.animationFramesByCell = 2;
+                    this.deathAnimationFrameCount = 4;
+                    this.deathAnimationFramesByCell = 2;
+                    break;
+
+                case EnemyType.Fiery:
+                    currentTexture = fieryTexture;
+                    this.animationFrameCount = 8;
+                    this.animationFramesByCell = 2;
+                    this.deathAnimationFrameCount = 4;
+                    this.deathAnimationFramesByCell = 2;
+                    break;
+                case EnemyType.Frosty:
+                    currentTexture = frostyTexture;
+                    this.animationFrameCount = 8;
+                    this.animationFramesByCell = 2;
+                    this.deathAnimationFrameCount = 4;
+                    this.deathAnimationFramesByCell = 2;
                     break;
             }
         }
