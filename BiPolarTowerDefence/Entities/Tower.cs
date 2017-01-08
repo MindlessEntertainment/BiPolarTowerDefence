@@ -138,7 +138,7 @@ namespace BiPolarTowerDefence.Entities
             var pos = this._game.mouseState.Position;
             var rect = this.GetRect();
 
-            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
+            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed && this._level.TowerMenu.Active == false)
             {
                 deselectAllTowers();
                 this._isSelected = true;
