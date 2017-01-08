@@ -144,14 +144,14 @@ namespace BiPolarTowerDefence.Entities
             var pos = this._game.mouseState.Position;
             var rect = this.GetRect();
 
-            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed && this._level.TowerMenu.Active == false)
+            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed && Level.TowerMenu.Active == false)
             {
                 deselectAllTowers();
                 this._isSelected = true;
                 var newPos = position + new Vector3(-10,0,-50);
-                this._level.TowerMenu.PositionUpdate(newPos);
-                this._level.TowerMenu.Active = true;
-                this._level.TowerMenu.Tower = this;
+                Level.TowerMenu.PositionUpdate(newPos);
+                Level.TowerMenu.Active = true;
+                Level.TowerMenu.Tower = this;
             }
 
             switch (this._tech)
