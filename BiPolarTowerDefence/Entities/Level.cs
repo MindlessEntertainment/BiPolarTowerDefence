@@ -25,10 +25,13 @@ namespace BiPolarTowerDefence.Entities
         public int FieryCountdown = 0;
         public int FrostyCountdown = 0;
         public int EarthyCountdown = 0;
-        public int spawnCount = 4;
+        public TowerButtonMenu TowerMenu;
+
+
         public int coin = 100;
         private int life = 10;
         private int killCount = 0;
+        private int spawnCount = 1;
 
         private int count = 0;
 
@@ -54,7 +57,6 @@ namespace BiPolarTowerDefence.Entities
 
             new LevelLoader(this, levelName);
 
-            addTestTowers();
         }
 
 
@@ -108,6 +110,25 @@ namespace BiPolarTowerDefence.Entities
                 _game.ScreenManager.ActivateScreen(GameScreens.GameOver);
             }
 
+/*
+            Vector3 waveVector = new Vector3(0,0,0);
+            waveVector = Waves[WaveNumber].TheWave;
+            if(count % 90 == 0)
+            {
+                SpawnEnemy(this, (int) waveVector.X, 0);
+                Console.Write("Spawn1");
+            }
+            if(count % 90 == 30)
+            {
+                SpawnEnemy(this, (int) waveVector.Y, 1);
+                Console.Write("Spawn2");
+            }
+            if(count % 90 == 60)
+            {
+                SpawnEnemy(this, (int)waveVector.Z, 2);
+                Console.Write("Spawn3");
+            }
+*/
 
 
             if (spawnCount == 4)
@@ -136,15 +157,6 @@ namespace BiPolarTowerDefence.Entities
                     spawnCount++;
                 }
 
-            if (this._game.mouseState.RightButton == ButtonState.Pressed)
-            {
-                this.TowerMenu.Active = false;
-                DeselectAllTowers();
-            }
-            if (this.TowerMenu.Active)
-            {
-                this.TowerMenu.Update(gameTime);
-            }
 
                 if (spawnCount == 2 && FieryCountdown > 0)
                 {
@@ -165,7 +177,19 @@ namespace BiPolarTowerDefence.Entities
                     spawnCount++;
                 }
             }
+
+            if (this._game.mouseState.RightButton == ButtonState.Pressed)
+            {
+                TowerMenu.Active = false;
+                DeselectAllTowers();
+            }
+            if (TowerMenu.Active)
+            {
+                TowerMenu.Update(gameTime);
+            }
+
             base.Update(gameTime);
+            count++;
         }
 
         public void DeselectAllTowers()
@@ -217,9 +241,9 @@ namespace BiPolarTowerDefence.Entities
 
             spriteBatch.End();
 
-            if (this.TowerMenu.Active)
+            if (TowerMenu.Active)
             {
-                this.TowerMenu.Draw(gameTime);
+                TowerMenu.Draw(gameTime);
             }
         }
 
@@ -240,7 +264,10 @@ namespace BiPolarTowerDefence.Entities
 
         public void SpawnEnemy(Level level,int type)
         {
-            AddComponent(new Enemy(this, (EnemyType) type) {position = this.Waypoints[0].position});
+            var enemyType = (EnemyType) type;
+            var enemy = new Enemy(this,enemyType) {position = this.Waypoints[0].position};
+            Console.WriteLine("Type " + enemyType + " from " + type);
+            AddComponent(enemy);
         }
 
 

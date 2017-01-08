@@ -115,11 +115,12 @@ namespace BiPolarTowerDefence.Entities
                 }
             }
 
-            var towerColor = Color.White;
+            var towerColor = Color.Black;
             switch (type)
             {
                 case TowerType.Earthy:
                     towerColor = Color.Green;
+
                     break;
                 case TowerType.Fiery:
                     towerColor = Color.Red;
@@ -128,6 +129,11 @@ namespace BiPolarTowerDefence.Entities
                     towerColor = Color.Blue;
                     break;
             }
+
+            var t2 = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
+            t2.SetData(new[]{Color.White});
+
+            spriteBatch.Draw(t2,new Rectangle((int)position.X,(int)position.Z, (int)this.width, 2),towerColor);
 
             //spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(this.height - Tile.TILE_SIZE/2, this.width/2),SpriteEffects.None, 1f );
             spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(animationIndex * SpriteAnimationWidth,0,SpriteAnimationWidth,SpriteAnimationHeight),towerColor,0f,new Vector2(0,0),SpriteEffects.None, 1f );
@@ -138,14 +144,14 @@ namespace BiPolarTowerDefence.Entities
             var pos = this._game.mouseState.Position;
             var rect = this.GetRect();
 
-            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed && this._level.TowerMenu.Active == false)
+            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed && Level.TowerMenu.Active == false)
             {
                 deselectAllTowers();
                 this._isSelected = true;
                 var newPos = position + new Vector3(-10,0,-50);
-                this._level.TowerMenu.PositionUpdate(newPos);
-                this._level.TowerMenu.Active = true;
-                this._level.TowerMenu.Tower = this;
+                Level.TowerMenu.PositionUpdate(newPos);
+                Level.TowerMenu.Active = true;
+                Level.TowerMenu.Tower = this;
             }
 
             switch (this._tech)
