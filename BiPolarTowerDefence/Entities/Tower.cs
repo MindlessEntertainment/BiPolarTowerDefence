@@ -23,6 +23,7 @@ namespace BiPolarTowerDefence.Entities
         private Vector3 shotVector = new Vector3(1f,0f,0f);
 
 
+
         public Tower(Level level, Vector3 position) : base(level._game, position)
         {
             _level = level;
@@ -132,6 +133,8 @@ namespace BiPolarTowerDefence.Entities
             {
                 this._isSelected = true;
             }
+
+
             base.Update(gameTime);
         }
 
@@ -265,6 +268,7 @@ namespace BiPolarTowerDefence.Entities
                     break;
             }
         }
+
 
         private Vector3 getCenterLocation()
         {

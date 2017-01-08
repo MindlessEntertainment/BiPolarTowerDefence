@@ -58,6 +58,8 @@
     <Compile Include="Entities\ScreenManager.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tower.cs" />
+    <Compile Include="Entities\TowerButton.cs" />
+    <Compile Include="Entities\TowerButtonMenu.cs" />
     <Compile Include="Entities\TowerTechLevel.cs" />
     <Compile Include="Entities\TowerType.cs" />
     <Compile Include="Entities\Waypoint.cs" />
