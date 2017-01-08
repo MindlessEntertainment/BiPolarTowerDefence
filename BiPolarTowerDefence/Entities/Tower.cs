@@ -20,7 +20,8 @@ namespace BiPolarTowerDefence.Entities
         private float projectileSpeed = 25f;
         public TowerType type = TowerType.Normal;
         private bool _isSelected;
-        private Vector3 shotVector;
+        private Vector3 shotVector = new Vector3(1f,0f,0f);
+
 
 
         public Tower(Level level, Vector3 position) : base(level._game, position)
@@ -41,13 +42,73 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            var animationIndex = 0;
+            var angleDiff = Math.Abs(Math.Abs(shotVector.X) - Math.Abs(shotVector.Z));
+            if (angleDiff > 0.5)
+            {
+                //Horizantal
+                if (Math.Abs(shotVector.X) > Math.Abs(shotVector.Z))
+                {
+                    if (shotVector.X > 0)
+                    {
+                        animationIndex = 0;//right
+                    }
+                    else
+                    {
+                        animationIndex = 4;//Left
+
+                        Console.WriteLine(shotVector);
+                        Console.WriteLine(angleDiff);
+                        Console.WriteLine("Left");
+                    }
+                }
+                else //Vertical
+                {
+                    if (shotVector.Z < 0) //Up
+                    {
+                        animationIndex = 6;
+                    }
+                    else
+                    {
+                        animationIndex = 2;
+                    }
+                }
+            }
+            else
+            {
+                //Horizantal
+                if (shotVector.Z < 0)
+                {
+                    if (shotVector.X > 0)
+                    {
+                        animationIndex = 7;//Up right
+                    }
+                    else
+                    {
+                        animationIndex = 5; //up left
+                    }
+                }
+                else //Vertical
+                {
+                    if (shotVector.X > 0) //Down right
+                    {
+                        animationIndex = 1;
+                        //Console.WriteLine("Down right");
+                    }
+                    else // Down left
+                    {
+                        animationIndex = 3;
+                        //Console.WriteLine("Down left");
+                    }
+                }
+            }
 
             var t = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
             t.SetData(new[]{Color.White});
 
             spriteBatch.Draw(t,this.GetRect(),Color.Green);
             //spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(this.height - Tile.TILE_SIZE/2, this.width/2),SpriteEffects.None, 1f );
-            spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(0,0),SpriteEffects.None, 1f );
+            spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(animationIndex * SpriteAnimationWidth,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(0,0),SpriteEffects.None, 1f );
         }
 
         public override void Update(GameTime gameTime)
@@ -72,6 +133,8 @@ namespace BiPolarTowerDefence.Entities
             {
                 this._isSelected = true;
             }
+
+
             base.Update(gameTime);
         }
 
@@ -141,7 +204,6 @@ namespace BiPolarTowerDefence.Entities
                 enemyVelocityVector = myTarget.VelocityVector;
                 shotVector = targetVelocityVector + enemyVelocityVector;
                 shotVector.Normalize();
-                Console.WriteLine(shotVector);
                 Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
             }
 
@@ -207,12 +269,23 @@ namespace BiPolarTowerDefence.Entities
             }
         }
 
+
         private Vector3 getCenterLocation()
         {
             return this.position + (new Vector3(this.width, 0, this.height))/2;
         }
 
+        private float VectorToAngle(Vector3 vector)
+        {
+            var myVector = new Vector2(vector.X, vector.Z);
+            if (myVector.Length() < 1)
+            {
+                myVector = Vector2.UnitY * -1;
+            }
+            myVector.Normalize();
 
+            return (int)Math.Atan2(myVector.Y, myVector.X);
+        }
     }
 
 }
