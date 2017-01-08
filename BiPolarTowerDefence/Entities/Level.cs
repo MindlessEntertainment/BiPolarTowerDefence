@@ -25,7 +25,6 @@ namespace BiPolarTowerDefence.Entities
         public int FieryCountdown = 0;
         public int FrostyCountdown = 0;
         public int EarthyCountdown = 0;
-        public TowerButtonMenu TowerMenu;
 
 
         public int coin = 100;
