@@ -204,7 +204,7 @@ namespace BiPolarTowerDefence.Entities
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
             AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(10* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(15* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 10 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
         }
     }
 }
