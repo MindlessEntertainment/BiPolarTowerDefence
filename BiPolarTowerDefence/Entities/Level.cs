@@ -18,6 +18,9 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
+        public static TowerButtonMenu TowerMenu = new TowerButtonMenu(Game1.Game, Vector3.Zero);
+
+
         public int coin = 100;
         private int life = 10;
         private int killCount = 0;
