@@ -234,5 +234,9 @@ namespace BiPolarTowerDefence.Entities
         }
 
 
+        public void AddTower(int X, int Y)
+        {
+            AddComponent(new Tower(this, new Vector3(X * Tile.TILE_SIZE, 0, Y * Tile.TILE_SIZE)));
+        }
     }
 }
