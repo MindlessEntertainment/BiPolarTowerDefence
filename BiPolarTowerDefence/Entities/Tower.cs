@@ -13,7 +13,7 @@ namespace BiPolarTowerDefence.Entities
         private readonly Level _level;
         private Texture2D _texture;
         private int _count = 0;
-        private TowerTechLevel _tech = TowerTechLevel.Base;
+        public TowerTechLevel _tech = TowerTechLevel.Base;
         private int towerRange = Tile.TILE_SIZE*3;
         private int rateOfFire = 60;
         private string turretTargetSetting = "LowHealth..";
@@ -22,6 +22,7 @@ namespace BiPolarTowerDefence.Entities
         private bool _isSelected;
         private Vector3 shotVector = new Vector3(1f,0f,0f);
 
+        int count = 0;
 
 
         public Tower(Level level, Vector3 position) : base(level._game, position)
