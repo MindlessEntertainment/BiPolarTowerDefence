@@ -13,7 +13,7 @@ namespace BiPolarTowerDefence.Entities
     {
         public Queue<Enemy> enemyReuseQueue = new Queue<Enemy>();
         private readonly Level _level;
-        private readonly EnemyType _enemyType;
+        private EnemyType _enemyType;
         private readonly Game1 _game;
         private Texture2D texture;
         private string Enemytype;
@@ -121,6 +121,25 @@ namespace BiPolarTowerDefence.Entities
             }
             distanceVector.Normalize();
             velocityVector = distanceVector * speed;
+        }
+
+        public void ChangeEnemyTypeIfCircle()
+        {
+            switch (_enemyType)
+            {
+                case EnemyType.Frosty:
+                    _enemyType = EnemyType.Earthy;
+                    break;
+                case EnemyType.Fiery:
+                    _enemyType = EnemyType.Frosty;
+                    break;
+                case EnemyType.Earthy:
+                    _enemyType = EnemyType.Fiery;
+                    break;
+                case EnemyType.Normal:
+                    _enemyType = EnemyType.Earthy;
+                    break;
+            }
         }
     }
 }
