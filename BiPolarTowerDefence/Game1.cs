@@ -64,17 +64,30 @@ namespace BiPolarTowerDefence
 			Font = Fonts.Ariel14Bold;
 		    ScreenManager = new ScreenManager(this);
 		    var splashScreen = new LogoScreen();
-		    splashScreen.Activate();
 		    var menu = new MainMenuScreen();
+		    var gameplay = new GameplayScreen();
+		    var gameOver = new GameOverScreen();
+		    var credits = new CreditsScreen();
+		    if (DEV_MODE)
+		    {
+		        gameplay.Activate();
+		    }
+		    else
+		    {
+		        splashScreen.Activate();
+
+		    }
 		    ScreenManager.AddScreen(GameScreens.SplashScreen, splashScreen);
 		    ScreenManager.AddScreen(GameScreens.MainMenu, menu);
-		    ScreenManager.AddScreen(GameScreens.GamePlay, new GameplayScreen());
-		    ScreenManager.AddScreen(GameScreens.GameOver, new GameOverScreen());
-		    ScreenManager.AddScreen(GameScreens.Credits, new CreditsScreen());
+		    ScreenManager.AddScreen(GameScreens.GamePlay, gameplay);
+		    ScreenManager.AddScreen(GameScreens.GameOver, gameOver);
+		    ScreenManager.AddScreen(GameScreens.Credits, credits);
 		    base.Initialize ();
 		}
 
-		/// <summary>
+	    public bool DEV_MODE { get; set; } = false;
+
+	    /// <summary>
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
 		/// </summary>
