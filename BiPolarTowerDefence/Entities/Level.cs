@@ -108,18 +108,20 @@ namespace BiPolarTowerDefence.Entities
 
             Vector3 waveVector = new Vector3(0,0,0);
             waveVector = Waves[WaveNumber].TheWave;
-
-            if(count++ % 90 == 0)
+            if(count % 90 == 0)
             {
                 SpawnEnemy(this, (int) waveVector.X, 0);
+                Console.Write("Spawn1");
             }
-            if(count++ % 90 == 30)
+            if(count % 90 == 30)
             {
                 SpawnEnemy(this, (int) waveVector.Y, 1);
+                Console.Write("Spawn2");
             }
-            if(count++ % 90 == 60)
+            if(count % 90 == 60)
             {
                 SpawnEnemy(this, (int)waveVector.Z, 2);
+                Console.Write("Spawn3");
             }
 
             if (this._game.mouseState.RightButton == ButtonState.Pressed)
@@ -133,6 +135,7 @@ namespace BiPolarTowerDefence.Entities
             }
 
             base.Update(gameTime);
+            count++;
         }
 
         public void DeselectAllTowers()
@@ -207,7 +210,10 @@ namespace BiPolarTowerDefence.Entities
 
         public void SpawnEnemy(Level level,int i,int type)
         {
-            AddComponent(new Enemy(this, (EnemyType) type) {position = this.Waypoints[0].position});
+            var enemyType = (EnemyType) type;
+            var enemy = new Enemy(this,enemyType) {position = this.Waypoints[0].position};
+            Console.WriteLine("Type " + enemyType + " from " + type);
+            AddComponent(enemy);
         }
 
 

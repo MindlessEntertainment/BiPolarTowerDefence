@@ -17,6 +17,7 @@ namespace BiPolarTowerDefence.Entities
             height = 20;
 
             TowerButtons.Add(new TowerButton(game , position+offset*1, "+",this));
+            TowerButtons.Add(new TowerButton(game , position+offset*2, "1",this));
             TowerButtons.Add(new TowerButton(game , position+offset*2, "2",this));
             TowerButtons.Add(new TowerButton(game , position+offset*3, "3",this));
         }

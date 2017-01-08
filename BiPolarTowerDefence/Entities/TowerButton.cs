@@ -25,9 +25,17 @@ namespace BiPolarTowerDefence.Entities
             {
                 this._menu.Tower.TierUp();
             }
-            else
+            else if(this.text == "1")
             {
-
+                this._menu.Tower.type = TowerType.Earthy;
+            }
+            else if(this.text == "2")
+            {
+                this._menu.Tower.type = TowerType.Fiery;
+            }
+            else if(this.text == "3")
+            {
+                this._menu.Tower.type = TowerType.Frosty;
             }
         }
     }
