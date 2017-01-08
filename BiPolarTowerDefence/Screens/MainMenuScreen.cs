@@ -27,8 +27,8 @@ namespace BiPolarTowerDefence.Screens
             Vector2 size 	        = new Vector2(200,80);
             float buttonX           = ((Game1.GAME_WIDTH / 2)- (size.X/2));
 
-            MenuButton start = new MenuButton(this, new Vector2 (buttonX,200f), size,MenuButtons.START, font);
-            MenuButton edit = new MenuButton(this, new Vector2 (buttonX,300f), size, MenuButtons.EDIT, font);
+            MenuButton start = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,200f),"START",this,MenuButtons.START);
+            MenuButton edit = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,300f), "EDIT",this,MenuButtons.EDIT);
             menuButtons.Add(start);
             menuButtons.Add(edit);
         }
@@ -37,7 +37,7 @@ namespace BiPolarTowerDefence.Screens
         {
             foreach (var button in menuButtons)
             {
-                button.Update();
+                button.Update(gameTime);
             }
         }
 
@@ -52,7 +52,7 @@ namespace BiPolarTowerDefence.Screens
 
             foreach (var button in menuButtons)
             {
-                button.Draw(gameTime,graphics, spriteBatch);
+                button.Draw(gameTime);
             }
         }
 

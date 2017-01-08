@@ -8,8 +8,8 @@ namespace BiPolarTowerDefence.Entities
     {
         private static Texture2D texture;
 
-        public const int TILE_SIZE = 32;
-        public const int TILE_SOURCE_SIZE = TILE_SIZE * 2;
+        public const int TILE_SIZE = 48;
+        public const int TILE_SOURCE_SIZE = 64;
 
         private readonly Game1 _game;
         public TileType Type;
@@ -37,7 +37,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,new Vector2(position.X,position.Z),new Rectangle(offset * TILE_SOURCE_SIZE ,(int)Type * TILE_SOURCE_SIZE, TILE_SOURCE_SIZE, TILE_SOURCE_SIZE),Color.White,0,Vector2.Zero,0.5f,SpriteEffects.None,1f);
+            spriteBatch.Draw(texture,this.GetRect(),new Rectangle(offset * TILE_SOURCE_SIZE ,(int)Type * TILE_SOURCE_SIZE, TILE_SOURCE_SIZE, TILE_SOURCE_SIZE),Color.White);
             //spriteBatch.DrawString(_game._font,offset.ToString(),new Vector2(position.X,position.Z) + new Vector2(8,8),Color.White );
         }
     }

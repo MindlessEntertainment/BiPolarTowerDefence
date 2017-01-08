@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OpenTK;
-using Vector3 = Microsoft.Xna.Framework.Vector3;
 
 namespace BiPolarTowerDefence.Entities
 {
@@ -21,6 +19,11 @@ namespace BiPolarTowerDefence.Entities
         public Rectangle GetRect()
         {
             return new Rectangle((int)this.position.X, (int)this.position.Z, (int)this.width,(int)this.height);
+        }
+
+        public Vector2 GetPosition2()
+        {
+            return new Vector2(position.X,position.Z);
         }
     }
 }

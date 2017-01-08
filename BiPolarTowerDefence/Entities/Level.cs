@@ -18,7 +18,7 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
-        int coin = 100;
+        public int coin = 100;
         private int life = 10;
         private int killCount = 0;
 
@@ -31,6 +31,7 @@ namespace BiPolarTowerDefence.Entities
             _gameWidth = gameWidth;
 
             tiles = new Tile[_gameWidth,_gameHeight];
+
             for (int x = 0; x < _gameWidth; x++)
             {
                 for (int y = 0; y < _gameHeight; y++)
@@ -69,6 +70,10 @@ namespace BiPolarTowerDefence.Entities
 
         public void AddTile(int X, int Y, TileType type)
         {
+            if (X >= _gameWidth || Y >= _gameHeight)
+            {
+                return;
+            }
             var tile = this.tiles[X, Y];
             tile.Type = type;
         }
@@ -198,6 +203,17 @@ namespace BiPolarTowerDefence.Entities
         public IEnumerable<GameComponent> getComponents()
         {
             return _components;
+        }
+
+        public bool PayUp(int i)
+        {
+            if (i <= coin)
+            {
+                coin -= i;
+                return true;
+            }
+            return false;
+
         }
     }
 }

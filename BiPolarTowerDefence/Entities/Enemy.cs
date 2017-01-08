@@ -36,8 +36,8 @@ namespace BiPolarTowerDefence.Entities
         public int Life { get; private set; }
         private int MaxLife;
         private const int lifeBarWidth = 50;
-        private const int spriteCellWidth = 600;
-        private const int spriteCellHeight = 600;
+        private const int spriteCellWidth = 600-1;
+        private const int spriteCellHeight = 600-1;
         private float speed;
         private const float initialSpeed = 3;
         private Vector3 distanceVector;
@@ -73,8 +73,8 @@ namespace BiPolarTowerDefence.Entities
             {
                 speed = initialSpeed;
             }
-            this.height = 32;
-            this.width = 32;
+            this.height = Tile.TILE_SIZE;
+            this.width = Tile.TILE_SIZE;
         }
 
         public override void Initialize()
@@ -104,11 +104,15 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            int spriteAnimationIndex = (animationIndex / animationFramesByCell) % animationFrameCount;
+
             Debug.Assert(currentTexture != null, "currentTexture != null");
-            spriteBatch.Draw(currentTexture, destinationRectangle: this.GetRect(),sourceRectangle: new Rectangle(0,0,spriteCellWidth,spriteCellHeight),color: Color.White);
+            spriteBatch.Draw(currentTexture, destinationRectangle: this.GetRect(),sourceRectangle: new Rectangle(spriteAnimationIndex * spriteCellWidth,0,spriteCellWidth,spriteCellHeight),color: Color.White);
 
             spriteBatch.Draw(textureHealth,new Rectangle((int)position.X-1,(int)position.Z-1, lifeBarWidth, 7),Color.Gray);
             spriteBatch.Draw(textureHealth,new Rectangle((int)position.X,(int)position.Z, lifeBarWidth/MaxLife*Life, 5),Color.Green);
+
+            this.animationIndex++;
         }
 
         public void OnCollision(ICollider collider)
@@ -187,25 +191,25 @@ namespace BiPolarTowerDefence.Entities
             {
                 case EnemyType.Earthy:
                     currentTexture = earthyTexture;
-                    this.animationFrameCount = 8;
-                    this.animationFramesByCell = 2;
-                    this.deathAnimationFrameCount = 4;
-                    this.deathAnimationFramesByCell = 2;
+                    this.animationFrameCount = 6;
+                    this.animationFramesByCell = 5;
+                    this.deathAnimationFrameCount = 7;
+                    this.deathAnimationFramesByCell = 5;
                     break;
 
                 case EnemyType.Fiery:
                     currentTexture = fieryTexture;
-                    this.animationFrameCount = 8;
-                    this.animationFramesByCell = 2;
-                    this.deathAnimationFrameCount = 4;
-                    this.deathAnimationFramesByCell = 2;
+                    this.animationFrameCount = 10;
+                    this.animationFramesByCell = 5;
+                    this.deathAnimationFrameCount = 6;
+                    this.deathAnimationFramesByCell = 5;
                     break;
                 case EnemyType.Frosty:
                     currentTexture = frostyTexture;
-                    this.animationFrameCount = 8;
-                    this.animationFramesByCell = 2;
-                    this.deathAnimationFrameCount = 4;
-                    this.deathAnimationFramesByCell = 2;
+                    this.animationFrameCount = 6;
+                    this.animationFramesByCell = 5;
+                    this.deathAnimationFrameCount = 5;
+                    this.deathAnimationFramesByCell = 5;
                     break;
             }
         }
