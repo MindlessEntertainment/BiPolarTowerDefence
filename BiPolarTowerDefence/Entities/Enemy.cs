@@ -36,6 +36,7 @@ namespace BiPolarTowerDefence.Entities
 
         public Enemy(Level level,EnemyType enemyType) : base(level._game, Vector3.Zero)
         {
+            Console.WriteLine("Sawning new " + enemyType);
             _level = level;
             _enemyType = enemyType;
             _game = level._game;
@@ -65,6 +66,7 @@ namespace BiPolarTowerDefence.Entities
                 textureHealth.SetData(new[]{Color.White});
 
                 earthyTexture = Game.Content.Load<Texture2D>("grasssprite");
+                fieryTexture = Game.Content.Load<Texture2D>("fire");
 
 
             }
@@ -91,6 +93,12 @@ namespace BiPolarTowerDefence.Entities
                     currentTexture = earthyTexture;
                     spriteFrameHeight = currentTexture.Height / 2;
                     spriteFrameWidth = currentTexture.Width / 8;
+                    break;
+
+                case EnemyType.Fiery:
+                    currentTexture = fieryTexture;
+                    spriteFrameHeight = currentTexture.Height / 2;
+                    spriteFrameWidth = currentTexture.Width / 12;
                     break;
 
             }

@@ -172,7 +172,7 @@ namespace BiPolarTowerDefence.Entities
         public void SpawnEnemy(Level level)
         {
 
-            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,2)){position = new Vector3(-10,0,0)});
+            AddComponent(new Enemy(this,(EnemyType)_game.random.Next(0,3)){position = new Vector3(-10,0,0)});
 
         }
 
