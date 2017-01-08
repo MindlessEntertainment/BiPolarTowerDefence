@@ -1,5 +1,6 @@
 ﻿using System;
 using BiPolarTowerDefence.Interfaces;
+using BiPolarTowerDefence.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +14,7 @@ namespace BiPolarTowerDefence.Entities
         private readonly Level _level;
         private Texture2D _texture;
         private int _count = 0;
-        private TowerTechLevel _tech = TowerTechLevel.Base;
+        public TowerTechLevel _tech = TowerTechLevel.Base;
         private int towerRange = Tile.TILE_SIZE*3;
         private int rateOfFire = 60;
         private string turretTargetSetting = "LowHealth..";
@@ -22,6 +23,7 @@ namespace BiPolarTowerDefence.Entities
         private bool _isSelected;
         private Vector3 shotVector = new Vector3(1f,0f,0f);
 
+        int count = 0;
 
 
         public Tower(Level level, Vector3 position) : base(level._game, position)
@@ -133,7 +135,6 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
-
             switch (this._tech)
             {
                 case TowerTechLevel.Base:
@@ -152,11 +153,27 @@ namespace BiPolarTowerDefence.Entities
             var rect = this.GetRect();
             if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
             {
+                deselectAllTowers();
                 this._isSelected = true;
+                var newPos = position + new Vector3(-10,0,-50);
+                this._level.TowerMenu.PositionUpdate(newPos);
+                this._level.TowerMenu.Active = true;
+                this._level.TowerMenu.Tower = this;
             }
 
-
             base.Update(gameTime);
+        }
+
+        private void deselectAllTowers()
+        {
+            foreach (var item in this._level.getComponents())
+            {
+                var tower = item as Tower;
+                if (tower != null)
+                {
+                    tower.Deselect();
+                }
+            }
         }
 
         private void shootBullet()
@@ -164,6 +181,7 @@ namespace BiPolarTowerDefence.Entities
             Enemy myTarget = null;
             float currentDistance =float.MaxValue;
             int currentlife =int.MaxValue;
+
 
             foreach (var item in _level.getComponents())
             {
@@ -225,13 +243,13 @@ namespace BiPolarTowerDefence.Entities
                 enemyVelocityVector = myTarget.VelocityVector;
                 shotVector = targetVelocityVector + enemyVelocityVector;
                 shotVector.Normalize();
-                Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
+                Console.WriteLine(shotVector);
+                Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange, this.type);
+                //Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
             }
-
-
         }
 
-        private void TierUp()
+        public void TierUp()
         {
             if (_tech == TowerTechLevel.Base)
             {
@@ -304,8 +322,11 @@ namespace BiPolarTowerDefence.Entities
                 myVector = Vector2.UnitY * -1;
             }
             myVector.Normalize();
-
             return (int)Math.Atan2(myVector.Y, myVector.X);
+        }
+        public void Deselect()
+        {
+            this._isSelected = false;
         }
     }
 

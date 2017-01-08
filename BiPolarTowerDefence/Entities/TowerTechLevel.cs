@@ -1,6 +1,6 @@
 namespace BiPolarTowerDefence.Entities
 {
-    internal enum TowerTechLevel
+    public enum TowerTechLevel
     {
         Base,
         Tier1,

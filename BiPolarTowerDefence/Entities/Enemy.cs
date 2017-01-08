@@ -120,7 +120,14 @@ namespace BiPolarTowerDefence.Entities
             var bullet = collider as Bullet;
             if (bullet != null)
             {
-                this.Life--;
+                if (this.EnemyType.CompareTo(bullet.towerType)==0)
+                {
+                    this.Life++;
+                }
+                else
+                {
+                    this.Life--;
+                }
                 if (Life < 1)
                 {
                     _level.addMoney(5);
