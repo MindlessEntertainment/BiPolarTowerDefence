@@ -85,6 +85,7 @@ namespace BiPolarTowerDefence.Entities
             float currentDistance =float.MaxValue;
             int currentlife =int.MaxValue;
 
+
             foreach (var item in _level.getComponents())
             {
                 var enemy = item as Enemy;
@@ -146,7 +147,7 @@ namespace BiPolarTowerDefence.Entities
                 shotVector = targetVelocityVector + enemyVelocityVector;
                 shotVector.Normalize();
                 Console.WriteLine(shotVector);
-                Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
+                Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange, this.type);
             }
 
 

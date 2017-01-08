@@ -16,17 +16,20 @@ namespace BiPolarTowerDefence.Entities
         private static List<Bullet> activeBullets = new List<Bullet>();
         private static Queue<Bullet> sleepingBullets = new Queue<Bullet>();
         private BaseObject _owner;
+        public TowerType towerType;
 
         public Texture2D texture;
 
         public Vector3 velocity = Vector3.Zero;
 
-        public Bullet(Game1 game, Vector3 position, BaseObject owner) : base(game, position)
+        public Bullet(Game1 game, Vector3 position, BaseObject owner, TowerType towerType) : base(game, position)
         {
             _owner = owner;
+            this.towerType = towerType;
             this.MaxDistanceFromOwner = 100;
             this.texture = new Texture2D(game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
             this.texture.SetData(new[]{Color.White});
+
 
         }
 
@@ -57,7 +60,7 @@ namespace BiPolarTowerDefence.Entities
             this.Enabled = false;
         }
 
-        public static Bullet SpawnBullet(Level level, Vector3 position, Vector3 velocity, BaseObject owner, float maxRange)
+        public static Bullet SpawnBullet(Level level, Vector3 position, Vector3 velocity, BaseObject owner, float maxRange, TowerType towerType)
         {
             var game = level._game;
             Bullet bullet;
@@ -69,11 +72,11 @@ namespace BiPolarTowerDefence.Entities
                 bullet.velocity = velocity;
                 bullet._owner = owner;
                 bullet.MaxDistanceFromOwner = maxRange;
-
+                bullet.towerType = towerType;
             }
             else
             {
-                bullet = new Bullet(game, position, owner)
+                bullet = new Bullet(game, position, owner, towerType)
                 {
                     velocity = velocity,
                     MaxDistanceFromOwner = maxRange
