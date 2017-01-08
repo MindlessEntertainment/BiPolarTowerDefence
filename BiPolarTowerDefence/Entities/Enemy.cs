@@ -13,17 +13,21 @@ namespace BiPolarTowerDefence.Entities
     {
         public Queue<Enemy> enemyReuseQueue = new Queue<Enemy>();
         private readonly Level _level;
-        private EnemyType _enemyType;
         private readonly Game1 _game;
-        private Texture2D texture;
-        private string Enemytype;
+        private static Texture2D texture;
+        private static Texture2D earthyTexture;
+        private static Texture2D fieryTexture;
+        private static Texture2D frostyTexture;
+
+        private static Texture2D textureHealth;
+
+        private EnemyType _enemyType;
         public Direction myDirection;
-        private Texture2D textureHealth;
         public int Life { get; private set; }
         public int MaxLife;
         public int LifeWidth = 50;
-        public const int spriteWidth = 50;
-        public const int spriteHeight = 50;
+        public const int defaultSpriteWidth = 50;
+        public const int defaultSpriteHeight = 50;
         private float speed;
         private const float initialSpeed = 3;
         private Vector3 distanceVector;
@@ -47,16 +51,26 @@ namespace BiPolarTowerDefence.Entities
             {
                 speed = initialSpeed;
             }
+            this.height = 32;
+            this.width = 32;
             this.Initialize();
         }
 
         public override void Initialize()
         {
-            this.texture = Game.Content.Load<Texture2D>("enemy");
+            if (texture == null)
+            {
+                texture = Game.Content.Load<Texture2D>("enemy");
+                textureHealth = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
+                textureHealth.SetData(new[]{Color.White});
+
+                earthyTexture = Game.Content.Load<Texture2D>("grasssprite");
+
+
+            }
             this.Life = 3;
 
-            this.textureHealth = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
-            this.textureHealth.SetData(new[]{Color.White});
+
             base.Initialize();
         }
 
@@ -68,10 +82,23 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.X,this.position.Z),new Rectangle(0,0,spriteWidth,spriteHeight),Color.White);
+            Texture2D currentTexture = texture;
+            var spriteFrameHeight = defaultSpriteWidth;
+            var spriteFrameWidth = defaultSpriteHeight;
+            switch (this._enemyType)
+            {
+                case EnemyType.Earthy:
+                    currentTexture = earthyTexture;
+                    spriteFrameHeight = currentTexture.Height / 2;
+                    spriteFrameWidth = currentTexture.Width / 8;
+                    break;
 
-            spriteBatch.Draw(this.textureHealth,new Rectangle((int)position.X-1,(int)position.Z-1, LifeWidth, 7),Color.Gray);
-            spriteBatch.Draw(this.textureHealth,new Rectangle((int)position.X,(int)position.Z, LifeWidth/MaxLife*Life, 5),Color.Green);
+            }
+
+            spriteBatch.Draw(currentTexture, this.GetRect(),new Rectangle(0,0,spriteFrameWidth,spriteFrameHeight),Color.White);
+
+            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X-1,(int)position.Z-1, LifeWidth, 7),Color.Gray);
+            spriteBatch.Draw(textureHealth,new Rectangle((int)position.X,(int)position.Z, LifeWidth/MaxLife*Life, 5),Color.Green);
         }
 
         public void OnCollision(ICollider collider)
