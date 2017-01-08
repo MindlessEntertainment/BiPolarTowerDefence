@@ -137,7 +137,6 @@ namespace BiPolarTowerDefence.Entities
                 }
             }
 
-            var Font1 = _game._font;
             // Draw Hello World
             var Font1 = _game.Font;
             string output1 =  coin + " : Coins";
