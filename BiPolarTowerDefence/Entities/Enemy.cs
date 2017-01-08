@@ -22,6 +22,7 @@ namespace BiPolarTowerDefence.Entities
         private static Texture2D textureHealth;
 
         private EnemyType _enemyType;
+        public EnemyType EnemyType { get { return _enemyType; }}
         public Direction myDirection;
         public int Life { get; private set; }
         public int MaxLife;
@@ -91,14 +92,14 @@ namespace BiPolarTowerDefence.Entities
             {
                 case EnemyType.Earthy:
                     currentTexture = earthyTexture;
-                    spriteFrameHeight = currentTexture.Height / 2;
-                    spriteFrameWidth = currentTexture.Width / 8;
+                    spriteFrameHeight = 600;
+                    spriteFrameWidth = 600;
                     break;
 
                 case EnemyType.Fiery:
                     currentTexture = fieryTexture;
-                    spriteFrameHeight = currentTexture.Height / 2;
-                    spriteFrameWidth = currentTexture.Width / 12;
+                    spriteFrameHeight = 600;
+                    spriteFrameWidth = 600;
                     break;
 
             }
