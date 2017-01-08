@@ -8,6 +8,8 @@ namespace BiPolarTowerDefence.Entities
 {
     public class Tower: BaseObject, IMyGameDrawable
     {
+        private const int SpriteAnimationHeight = 600;
+        private const int SpriteAnimationWidth = 600;
         private readonly Level _level;
         private Texture2D _texture;
         private int _count = 0;
@@ -26,17 +28,26 @@ namespace BiPolarTowerDefence.Entities
             _level = level;
             this.Initialize();
             _isSelected = false;
+
+            this.width = Tile.TILE_SIZE;
+            this.height = Tile.TILE_SIZE;
         }
 
         public override void Initialize()
         {
-            this._texture = Game.Content.Load<Texture2D>("tower");
+            this._texture = Game.Content.Load<Texture2D>("gun");
             base.Initialize();
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this._texture, new Vector2(this.position.X,this.position.Z),new Rectangle(0,0,100,100),Color.White,0f,new Vector2(50,80),0.5f,SpriteEffects.None, 0f );
+
+            var t = new Texture2D(_game.GraphicsDevice, 1,1,false, SurfaceFormat.Color);
+            t.SetData(new[]{Color.White});
+
+            spriteBatch.Draw(t,this.GetRect(),Color.Green);
+            //spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(this.height - Tile.TILE_SIZE/2, this.width/2),SpriteEffects.None, 1f );
+            spriteBatch.Draw(this._texture, this.GetRect(),new Rectangle(0,0,SpriteAnimationWidth,SpriteAnimationHeight),Color.White,0f,new Vector2(0,0),SpriteEffects.None, 1f );
         }
 
         public override void Update(GameTime gameTime)
@@ -53,7 +64,6 @@ namespace BiPolarTowerDefence.Entities
             if (_count++ % rateOfFire == 0)
             {
                 this.shootBullet();
-                Bullet.SpawnBullet(_level, this.position + new Vector3(0,0,0), shotVector*projectileSpeed, this, towerRange);
             }
 
             var pos = this._game.mouseState.Position;
@@ -132,7 +142,7 @@ namespace BiPolarTowerDefence.Entities
                 shotVector = targetVelocityVector + enemyVelocityVector;
                 shotVector.Normalize();
                 Console.WriteLine(shotVector);
-
+                Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
             }
 
 
@@ -197,7 +207,10 @@ namespace BiPolarTowerDefence.Entities
             }
         }
 
-
+        private Vector3 getCenterLocation()
+        {
+            return this.position + (new Vector3(this.width, 0, this.height))/2;
+        }
 
 
     }
