@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using BiPolarTowerDefence.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BiPolarTowerDefence.Entities
 {
@@ -20,7 +21,7 @@ namespace BiPolarTowerDefence.Entities
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
         public float DifficultyLevel = (float) 0.25;
-        public static TowerButtonMenu TowerMenu = new TowerButtonMenu(Game1.Game, Vector3.Zero);
+        public TowerButtonMenu TowerMenu;
 
 
         public int coin = 100;
@@ -35,6 +36,7 @@ namespace BiPolarTowerDefence.Entities
             _gameHeight = gameHeight;
             _gameWidth = gameWidth;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            TowerMenu = new TowerButtonMenu(Game1.Game, Vector3.Zero);
 
             tiles = new Tile[_gameWidth,_gameHeight];
 
@@ -50,7 +52,7 @@ namespace BiPolarTowerDefence.Entities
 
             new LevelLoader(this, levelName);
 
-            //addTestTowers();
+            addTestTowers();
         }
 
 
@@ -120,7 +122,29 @@ namespace BiPolarTowerDefence.Entities
                 SpawnEnemy(this, (int)waveVector.Z, 2);
             }
 
+            if (this._game.mouseState.RightButton == ButtonState.Pressed)
+            {
+                this.TowerMenu.Active = false;
+                DeselectAllTowers();
+            }
+            if (this.TowerMenu.Active)
+            {
+                this.TowerMenu.Update(gameTime);
+            }
+
             base.Update(gameTime);
+        }
+
+        public void DeselectAllTowers()
+        {
+            foreach (var item in this._components)
+            {
+                var tower = item as Tower;
+                if (tower != null)
+                {
+                    tower.Deselect();
+                }
+            }
         }
 
         public void Draw(GameTime gameTime)
@@ -139,7 +163,7 @@ namespace BiPolarTowerDefence.Entities
                 }
             }
 
-            // Draw Hello World
+            // Hér eru GUI hlutir
             var Font1 = _game.Font;
             string output1 =  coin + " : Coins";
             Vector2 FontOrigin1 = new Vector2(Font1.MeasureString(output1).X,0);
@@ -159,6 +183,11 @@ namespace BiPolarTowerDefence.Entities
 
 
             spriteBatch.End();
+
+            if (this.TowerMenu.Active)
+            {
+                this.TowerMenu.Draw(gameTime);
+            }
         }
 
         public int DrawOrder { get; }

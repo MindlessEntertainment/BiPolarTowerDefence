@@ -31,9 +31,8 @@ namespace BiPolarTowerDefence.Screens
             float buttonX           = Game1.GAME_WIDTH - size.X - 50;
 
             MenuButton start = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,500f),"START",this,MenuButtons.START);
-            MenuButton edit = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,600f), "EXIT",this,MenuButtons.EXIT);
             menuButtons.Add(start);
-            menuButtons.Add(edit);
+            menuButtons.Add(new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,300f), "EXIT",this,MenuButtons.EXIT));
         }
 
         public override void Update(GameTime gameTime)
@@ -57,21 +56,6 @@ namespace BiPolarTowerDefence.Screens
             foreach (var button in menuButtons)
             {
                 button.Draw(gameTime);
-            }
-        }
-
-        public void HandleClick(MenuButtons button)
-        {
-            switch (button)
-            {
-                case MenuButtons.START:
-                    Deactivate();
-                    var a = this.ScreenManager.screens[GameScreens.GamePlay];
-                    a.Activate();
-                    break;
-                case MenuButtons.EXIT:
-                    Game1.Game.Exit();
-                    break;
             }
         }
     }

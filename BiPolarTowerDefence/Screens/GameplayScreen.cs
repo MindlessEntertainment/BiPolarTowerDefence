@@ -1,16 +1,14 @@
 ﻿using BiPolarTowerDefence.Entities;
+using BiPolarTowerDefence.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BiPolarTowerDefence.Screens
 {
     public class GameplayScreen : BaseScreen
     {
         private Level level;
-
-        public GameplayScreen()
-        {
-
-        }
+        public bool PauseGame { get; private set; } = false;
 
         public override void Load()
         {
@@ -19,12 +17,25 @@ namespace BiPolarTowerDefence.Screens
 
         public override void Update(GameTime gameTime)
         {
-            level.Update(gameTime);
+            if (Input.Instance().PressedKey(Keys.Escape))
+            {
+                PauseGame = !PauseGame;
+            }
+
+            if (!PauseGame)
+            {
+                level.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
             level.Draw(gameTime);
+
+            if (PauseGame)
+            {
+                //TODO draw overlay
+            }
         }
     }
 }

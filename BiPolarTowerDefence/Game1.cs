@@ -113,7 +113,7 @@ namespace BiPolarTowerDefence
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
 			// Exit() is obsolete on iOS
 			#if !__IOS__ &&  !__TVOS__
-			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState ().IsKeyDown (Keys.Escape))
+			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				Exit ();
 			#endif
 
