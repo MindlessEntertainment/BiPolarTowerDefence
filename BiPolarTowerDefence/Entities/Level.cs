@@ -29,6 +29,7 @@ namespace BiPolarTowerDefence.Entities
             _game = game;
             _gameHeight = gameHeight;
             _gameWidth = gameWidth;
+            spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             tiles = new Tile[_gameWidth,_gameHeight];
 
@@ -44,25 +45,7 @@ namespace BiPolarTowerDefence.Entities
 
             new LevelLoader(this, levelName);
 
-
-
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-
-            AddComponent(new Tower(this, new Vector3(10* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-            //AddComponent(new Tower(this, new Vector3(8 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 8 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
-
-
-
-            ///this._components.Add(new Enemy(_game,new Vector3(5 * Tile.TILE_SIZE + Tile.TILE_SIZE/2, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE/2)));
-
-            spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            //addTestTowers();
         }
 
 
@@ -212,6 +195,16 @@ namespace BiPolarTowerDefence.Entities
             }
             return false;
 
+        }
+
+        public void addTestTowers()
+        {
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 4 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 5 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 6 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(3 * Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 7 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
+            AddComponent(new Tower(this, new Vector3(10* Tile.TILE_SIZE + Tile.TILE_SIZE, 0, 3 * Tile.TILE_SIZE + Tile.TILE_SIZE)));
         }
     }
 }
