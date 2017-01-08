@@ -34,6 +34,7 @@ namespace BiPolarTowerDefence.Entities
         private Vector3 distanceVector;
         private int WaypointIndex = 0;
         private Vector3 velocityVector;
+        public Vector3 VelocityVector { get { return velocityVector; }}
 
         public Enemy(Level level,EnemyType enemyType) : base(level._game, Vector3.Zero)
         {
@@ -151,7 +152,7 @@ namespace BiPolarTowerDefence.Entities
                     this.position = _level.Waypoints[0].position;
                     WaypointIndex = 1;
                     _level.loselife(1);
-
+                    this.ChangeEnemyTypeIfEnemyGoesInCircle();
                 }
                 distanceVector = _level.Waypoints[WaypointIndex % _level.Waypoints.Count].position - this.position;
             }
@@ -159,7 +160,7 @@ namespace BiPolarTowerDefence.Entities
             velocityVector = distanceVector * speed;
         }
 
-        public void ChangeEnemyTypeIfCircle()
+        public void ChangeEnemyTypeIfEnemyGoesInCircle()
         {
             switch (_enemyType)
             {
