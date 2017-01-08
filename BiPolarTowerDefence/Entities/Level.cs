@@ -31,6 +31,7 @@ namespace BiPolarTowerDefence.Entities
             _gameWidth = gameWidth;
 
             tiles = new Tile[_gameWidth,_gameHeight];
+
             for (int x = 0; x < _gameWidth; x++)
             {
                 for (int y = 0; y < _gameHeight; y++)
@@ -69,6 +70,10 @@ namespace BiPolarTowerDefence.Entities
 
         public void AddTile(int X, int Y, TileType type)
         {
+            if (X >= _gameWidth || Y >= _gameHeight)
+            {
+                return;
+            }
             var tile = this.tiles[X, Y];
             tile.Type = type;
         }
