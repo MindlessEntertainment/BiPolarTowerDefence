@@ -39,7 +39,7 @@ namespace BiPolarTowerDefence.Entities
         private const int spriteCellWidth = 600-1;
         private const int spriteCellHeight = 600-1;
         private float speed;
-        private const float initialSpeed = 3;
+        private const float initialSpeed = 2;
         private Vector3 distanceVector;
         private int WaypointIndex = 0;
         private Vector3 velocityVector;
@@ -120,7 +120,7 @@ namespace BiPolarTowerDefence.Entities
             var bullet = collider as Bullet;
             if (bullet != null)
             {
-                if (this.EnemyType.CompareTo(bullet.towerType)==0)
+                if ((int)bullet.towerType == (int)this.EnemyType)
                 {
                     this.Life++;
                 }

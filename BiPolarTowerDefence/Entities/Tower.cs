@@ -135,6 +135,19 @@ namespace BiPolarTowerDefence.Entities
 
         public override void Update(GameTime gameTime)
         {
+            var pos = this._game.mouseState.Position;
+            var rect = this.GetRect();
+
+            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
+            {
+                deselectAllTowers();
+                this._isSelected = true;
+                var newPos = position + new Vector3(-10,0,-50);
+                this._level.TowerMenu.PositionUpdate(newPos);
+                this._level.TowerMenu.Active = true;
+                this._level.TowerMenu.Tower = this;
+            }
+
             switch (this._tech)
             {
                 case TowerTechLevel.Base:
@@ -149,17 +162,7 @@ namespace BiPolarTowerDefence.Entities
                 this.shootBullet();
             }
 
-            var pos = this._game.mouseState.Position;
-            var rect = this.GetRect();
-            if (rect.Contains(pos) && this._game.mouseState.LeftButton == ButtonState.Pressed)
-            {
-                deselectAllTowers();
-                this._isSelected = true;
-                var newPos = position + new Vector3(-10,0,-50);
-                this._level.TowerMenu.PositionUpdate(newPos);
-                this._level.TowerMenu.Active = true;
-                this._level.TowerMenu.Tower = this;
-            }
+
 
             base.Update(gameTime);
         }
@@ -251,12 +254,15 @@ namespace BiPolarTowerDefence.Entities
 
         public void TierUp()
         {
+            Console.WriteLine("Upgrade ...");
+
             if (_tech == TowerTechLevel.Base)
             {
                 if (_level.PayUp(10))
                 {
                     _tech = TowerTechLevel.Tier1;
                     OnUpgrade();
+                    Console.WriteLine("Upgrade1");
                 }
 
             }
@@ -266,6 +272,7 @@ namespace BiPolarTowerDefence.Entities
                 {
                     _tech = TowerTechLevel.Tier2;
                     OnUpgrade();
+                    Console.WriteLine("Upgrade2");
                 }
             }
             else if (_tech == TowerTechLevel.Tier2)
@@ -274,16 +281,18 @@ namespace BiPolarTowerDefence.Entities
                 {
                     _tech = TowerTechLevel.Tier3;
                     OnUpgrade();
-                }
-                else if (_tech == TowerTechLevel.Tier3)
-                {
-                    if (_level.PayUp(2000))
-                    {
-                        _tech = TowerTechLevel.Tier4;
-                        OnUpgrade();
-                    }
+                    Console.WriteLine("Upgrade3");
                 }
 
+            }
+            else if (_tech == TowerTechLevel.Tier3)
+            {
+                if (_level.PayUp(2000))
+                {
+                    _tech = TowerTechLevel.Tier4;
+                    OnUpgrade();
+                    Console.WriteLine("Upgrade4");
+                }
             }
         }
 
