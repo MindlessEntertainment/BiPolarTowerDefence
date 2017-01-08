@@ -21,6 +21,7 @@ namespace BiPolarTowerDefence.Entities
         private Vector3 shotVector;
 
 
+
         public Tower(Level level, Vector3 position) : base(level._game, position)
         {
             _level = level;
@@ -36,6 +37,7 @@ namespace BiPolarTowerDefence.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //spriteBatch.Draw();
             spriteBatch.Draw(this._texture, new Vector2(this.position.X,this.position.Z),new Rectangle(0,0,100,100),Color.White,0f,new Vector2(50,80),0.5f,SpriteEffects.None, 0f );
         }
 
@@ -62,6 +64,8 @@ namespace BiPolarTowerDefence.Entities
             {
                 this._isSelected = true;
             }
+
+
             base.Update(gameTime);
         }
 
@@ -195,6 +199,28 @@ namespace BiPolarTowerDefence.Entities
                      rateOfFire =  30;
                     break;
             }
+        }
+
+        public static void CreateBorder( Texture2D texture,  int borderWidth, Color borderColor ) {
+            Color[] colors = new Color[ texture.Width * texture.Height ];
+
+            for ( int x = 0; x < texture.Width; x++ ) {
+                for ( int y = 0; y < texture.Height; y++ ) {
+                    bool colored = false;
+                    for ( int i = 0; i <= borderWidth; i++ ) {
+                        if ( x == i || y == i || x == texture.Width - 1 - i || y == texture.Height - 1 - i ) {
+                            colors[x + y * texture.Width] = borderColor;
+                            colored = true;
+                            break;
+                        }
+                    }
+
+                    if(colored == false)
+                        colors[ x + y * texture.Width ] = Color.Transparent;
+                }
+            }
+
+            texture.SetData( colors );
         }
 
 
