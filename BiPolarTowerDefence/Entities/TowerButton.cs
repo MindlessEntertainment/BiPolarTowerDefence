@@ -6,9 +6,12 @@ namespace BiPolarTowerDefence.Entities
 {
     public class TowerButton : BaseButton
     {
-        public TowerButton(Game1 game, Vector3 position, string text) : base(game, position, text)
+        private readonly TowerButtonMenu _menu;
+
+        public TowerButton(Game1 game, Vector3 position, string text,TowerButtonMenu menu) : base(game, position, text)
         {
-            ChangeSize(new Vector2(40, 20));
+            _menu = menu;
+            ChangeSize(new Vector2(40, 30));
         }
 
         public void PositionUpdate(Vector3 pos)
@@ -20,14 +23,12 @@ namespace BiPolarTowerDefence.Entities
         {
             if (this.text == "+")
             {
-                this.TowerButtonMenu.Tower.TierUp();
+                this._menu.Tower.TierUp();
             }
             else
             {
 
             }
         }
-
-        public TowerButtonMenu TowerButtonMenu { get; set; }
     }
 }

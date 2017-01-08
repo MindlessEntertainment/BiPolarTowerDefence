@@ -240,7 +240,7 @@ namespace BiPolarTowerDefence.Entities
             this.Waves.Add(new Wave(Frosty,Fiery,Earthy));
         }
 
-        public void SpawnEnemy(Level level,int type)
+        public void SpawnEnemy(Level level,int i,int type)
         {
             AddComponent(new Enemy(this, (EnemyType) type) {position = this.Waypoints[0].position});
         }
