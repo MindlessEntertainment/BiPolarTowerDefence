@@ -28,7 +28,6 @@ namespace BiPolarTowerDefence
 		internal static void RunGame ()
 		{
 			game = new Game1 ();
-		    game.DEV_MODE = true;
 		    game.Run ();
 			#if !__IOS__  && !__TVOS__
 			game.Dispose ();

@@ -12,23 +12,26 @@ namespace BiPolarTowerDefence.Screens
     public enum MenuButtons
     {
         START,
-        EDIT
+        EXIT
     }
 
     public class MainMenuScreen : BaseScreen
     {
+        private Texture2D background;
         List<MenuButton> menuButtons = new List<MenuButton>();
 		SpriteFont TitleFont;
 
         public override void Load()
         {
+            this.background = Game1.Game.Content.Load<Texture2D>("main-menu");
 			TitleFont = Fonts.Ariel54;
             SpriteFont font         = ScreenManager.Game.Font;
             Vector2 size 	        = new Vector2(200,80);
-            float buttonX           = ((Game1.GAME_WIDTH / 2)- (size.X/2));
+            //float buttonX           = ((Game1.GAME_WIDTH / 2)- (size.X/2));
+            float buttonX           = Game1.GAME_WIDTH - size.X - 50;
 
-            MenuButton start = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,200f),"START",this,MenuButtons.START);
-            MenuButton edit = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,300f), "EDIT",this,MenuButtons.EDIT);
+            MenuButton start = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,500f),"START",this,MenuButtons.START);
+            MenuButton edit = new MenuButton(Game1.Game, new Vector3 (buttonX, 0f,600f), "EXIT",this,MenuButtons.EXIT);
             menuButtons.Add(start);
             menuButtons.Add(edit);
         }
@@ -47,7 +50,8 @@ namespace BiPolarTowerDefence.Screens
             SpriteBatch spriteBatch = ScreenManager.Game.spriteBatch;
             graphics.Clear(Color.DarkSlateGray);
             spriteBatch.Begin();
-			spriteBatch.DrawString (TitleFont, "BiPolar Tower Defence", new Vector2 (150f, 100f), Color.White);
+            spriteBatch.Draw(this.background,Vector2.Zero,Color.White);
+			spriteBatch.DrawString (TitleFont, "BiPolar Tower Defence", new Vector2 (150f, 30f), Color.Black);
             spriteBatch.End();
 
             foreach (var button in menuButtons)
@@ -65,8 +69,8 @@ namespace BiPolarTowerDefence.Screens
                     var a = this.ScreenManager.screens[GameScreens.GamePlay];
                     a.Activate();
                     break;
-                case MenuButtons.EDIT:
-
+                case MenuButtons.EXIT:
+                    Game1.Game.Exit();
                     break;
             }
         }
