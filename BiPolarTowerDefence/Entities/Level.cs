@@ -20,16 +20,15 @@ namespace BiPolarTowerDefence.Entities
         public List<Wave> Waves = new List<Wave>();
         private SpriteBatch spriteBatch;
         public int WaveNumber = 1;
-        public float DifficultyLevel = (float) 0.25;
+        public float DifficultyLevel = (float) 1;
         public static TowerButtonMenu TowerMenu = new TowerButtonMenu(Game1.Game, Vector3.Zero);
         public int FieryCountdown = 0;
         public int FrostyCountdown = 0;
         public int EarthyCountdown = 0;
-        public TowerButtonMenu TowerMenu;
 
 
         public int coin = 100;
-        private int life = 10;
+        private int life = 100;
         private int killCount = 0;
         private int spawnCount = 4;
 
@@ -137,20 +136,21 @@ namespace BiPolarTowerDefence.Entities
                 Vector3 waveVector = new Vector3(0,0,0);
                 waveVector = Waves[WaveNumber++].TheWave;
                 FrostyCountdown = (int) waveVector.X;
-                Console.WriteLine("Frosty count " + FrostyCountdown);
+                //Console.WriteLine("Frosty count " + FrostyCountdown);
                 FieryCountdown = (int) waveVector.Y;
-                Console.WriteLine("Fiery count " + FieryCountdown);
+                //Console.WriteLine("Fiery count " + FieryCountdown);
                 EarthyCountdown = (int) waveVector.Z;
-                Console.WriteLine("Earthy count " + EarthyCountdown);
+                //Console.WriteLine("Earthy count " + EarthyCountdown);
             }
 
             if (count++ % 30 == 0)
             {
-                Console.WriteLine("Spawn count " + spawnCount);
+                //Console.WriteLine("Spawn count " + spawnCount);
                 if (spawnCount == 1 && EarthyCountdown > 0)
                 {
-                    SpawnEnemy(this, 0);
+                    SpawnEnemy(this, EnemyType.Earthy);
                     EarthyCountdown--;
+
                 }
                 if (EarthyCountdown == 0 && spawnCount == 1)
                 {
@@ -160,7 +160,7 @@ namespace BiPolarTowerDefence.Entities
 
                 if (spawnCount == 2 && FieryCountdown > 0)
                 {
-                    SpawnEnemy(this, 1);
+                    SpawnEnemy(this, EnemyType.Fiery);
                     FieryCountdown--;
                 }
                 if (FieryCountdown == 0 && spawnCount == 2)
@@ -169,7 +169,7 @@ namespace BiPolarTowerDefence.Entities
                 }
                 if (spawnCount == 3 && FrostyCountdown > 0)
                 {
-                    SpawnEnemy(this, 2);
+                    SpawnEnemy(this, EnemyType.Frosty);
                     FrostyCountdown--;
                 }
                 if (EarthyCountdown == 0 && spawnCount == 3)
@@ -262,11 +262,10 @@ namespace BiPolarTowerDefence.Entities
             this.Waves.Add(new Wave(Frosty,Fiery,Earthy));
         }
 
-        public void SpawnEnemy(Level level,int type)
+        public void SpawnEnemy(Level level,EnemyType type)
         {
-            var enemyType = (EnemyType) type;
-            var enemy = new Enemy(this,enemyType) {position = this.Waypoints[0].position};
-            Console.WriteLine("Type " + enemyType + " from " + type);
+            var enemy = new Enemy(this,type) {position = this.Waypoints[0].position};
+            //Console.WriteLine("Type " + enemyType + " from " + type);
             AddComponent(enemy);
         }
 

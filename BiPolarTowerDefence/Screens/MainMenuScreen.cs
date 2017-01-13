@@ -50,7 +50,7 @@ namespace BiPolarTowerDefence.Screens
             graphics.Clear(Color.DarkSlateGray);
             spriteBatch.Begin();
             spriteBatch.Draw(this.background,Vector2.Zero,Color.White);
-			spriteBatch.DrawString (TitleFont, "BiPolar Tower Defence", new Vector2 (150f, 30f), Color.Black);
+			spriteBatch.DrawString (TitleFont, "TriPolar Tower Defence", new Vector2 (150f, 30f), Color.Black);
             spriteBatch.End();
 
             foreach (var button in menuButtons)

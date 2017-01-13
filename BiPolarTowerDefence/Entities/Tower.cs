@@ -69,9 +69,9 @@ namespace BiPolarTowerDefence.Entities
                     {
                         animationIndex = 4;//Left
 
-                        Console.WriteLine(shotVector);
-                        Console.WriteLine(angleDiff);
-                        Console.WriteLine("Left");
+                        //Console.WriteLine(shotVector);
+                        //Console.WriteLine(angleDiff);
+                        //Console.WriteLine("Left");
                     }
                 }
                 else //Vertical
@@ -165,7 +165,14 @@ namespace BiPolarTowerDefence.Entities
 
             if (_count++ % rateOfFire == 0)
             {
-                this.shootBullet();
+                if (this.type == TowerType.Normal && count % rateOfFire * 5 == 0)
+                {
+                    this.shootBullet();
+                }
+                else
+                {
+                    this.shootBullet();
+                }
             }
 
 
@@ -252,7 +259,7 @@ namespace BiPolarTowerDefence.Entities
                 enemyVelocityVector = myTarget.VelocityVector;
                 shotVector = targetVelocityVector + enemyVelocityVector;
                 shotVector.Normalize();
-                Console.WriteLine(shotVector);
+                //Console.WriteLine(shotVector);
                 Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange, this.type);
                 //Bullet.SpawnBullet(_level, this.getCenterLocation() + shotVector*20, shotVector*projectileSpeed, this, towerRange);
             }
@@ -274,7 +281,7 @@ namespace BiPolarTowerDefence.Entities
             }
             else if (_tech == TowerTechLevel.Tier1)
             {
-                if (_level.PayUp(500))
+                if (_level.PayUp(70))
                 {
                     _tech = TowerTechLevel.Tier2;
                     OnUpgrade();
@@ -283,7 +290,7 @@ namespace BiPolarTowerDefence.Entities
             }
             else if (_tech == TowerTechLevel.Tier2)
             {
-                if (_level.PayUp(1000))
+                if (_level.PayUp(150))
                 {
                     _tech = TowerTechLevel.Tier3;
                     OnUpgrade();
@@ -293,7 +300,7 @@ namespace BiPolarTowerDefence.Entities
             }
             else if (_tech == TowerTechLevel.Tier3)
             {
-                if (_level.PayUp(2000))
+                if (_level.PayUp(300))
                 {
                     _tech = TowerTechLevel.Tier4;
                     OnUpgrade();
@@ -309,16 +316,16 @@ namespace BiPolarTowerDefence.Entities
                 case TowerTechLevel.Base:
                     break;
                 case TowerTechLevel.Tier1:
-                    //Tower er til.
+                    //Get the tower
                     break;
                 case TowerTechLevel.Tier2:
-                    // upgrade AOE
+                    rateOfFire = 40;
                     break;
                 case TowerTechLevel.Tier3:
                     towerRange = 500;
                     break;
                 case TowerTechLevel.Tier4:
-                     rateOfFire =  30;
+                    rateOfFire = 20;
                     break;
             }
         }
