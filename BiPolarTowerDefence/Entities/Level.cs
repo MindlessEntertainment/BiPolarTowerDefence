@@ -25,13 +25,13 @@ namespace BiPolarTowerDefence.Entities
         public int FieryCountdown = 0;
         public int FrostyCountdown = 0;
         public int EarthyCountdown = 0;
-        public TowerButtonMenu TowerMenu;
+
 
 
         public int coin = 100;
         private int life = 10;
         private int killCount = 0;
-        private int spawnCount = 1;
+        private int spawnCount = 4;
 
         private int count = 0;
 
