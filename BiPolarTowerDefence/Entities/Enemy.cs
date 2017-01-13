@@ -66,7 +66,7 @@ namespace BiPolarTowerDefence.Entities
             {
                 MaxLife = 3;
             }
-
+            this.Life = MaxLife;
             speed = initialSpeed*level.WaveNumber * level.DifficultyLevel/2;
             if (speed < initialSpeed)
             {
